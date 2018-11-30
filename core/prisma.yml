@@ -1,9 +1,8 @@
-endpoint: ${env:PRISMA_ENDPOINT}
+#endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: https://eu1.prisma.sh/sean-aede1d/prisma/dev
 datamodel: datamodel.prisma
 # secret: ${env:PRISMA_SECRET}
+
 hooks:
-  post:deploy:
+  post-deploy:
     - graphql get-schema -p prisma
-generate:
-  - generator: javascript-client
-    output: ./generated/prisma-client/
