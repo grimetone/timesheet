@@ -1,4 +1,47 @@
-type User {
+type Account {
+  id: ID! @unique
+  roleType: String!
+  name: String!
+  employeeNo: String @unique
+  email: String! @unique
+  password: String!
+  hrChargeKr: Int
+}
+
+type Jwt {
+  JWT: String!
+  expires: DateTime!
+  user: Account! 
+}
+
+type Timesheet {
+  id: ID! @unique
+  user: Account! @relation(name: "TimesheetByUser")
+  confirmedBy: Account @relation(name: "ConfirmedBy")
+  from: DateTime!
+  to: DateTime!
+  workPeriods: [WorkPeriod]
+}
+
+type WorkPeriod {
+  id: ID! @unique
+  from: DateTime!
+  to: DateTime!
+  user: Account! @relation(name: "WorkPeriodByUser")
+  confirmedBy: Account @relation(name: "WorkPeriodConfirmedBy")
+}
+
+type Project {
   id: ID! @unique
   name: String!
+  active: Boolean! @default(value: "true")
+  users: [Account!]!
+}
+
+type Expense {
+  id: ID! @unique
+  date: DateTime!
+  amtKr: Int!
+  registeredBy: Account! @relation(name: "ExpenseByUser")
+  confirmedBy: Account @relation(name: "ExpenseConfirmedByUser")
 }

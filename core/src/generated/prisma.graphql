@@ -1,13 +1,1161 @@
-# source: https://eu1.prisma.sh/sean-aede1d/prisma/dev
-# timestamp: Thu Nov 29 2018 21:01:12 GMT+0100 (Romance Standard Time)
+# source: https://eu1.prisma.sh/sean-aede1d/timesheet/dev
+# timestamp: Sat Dec 01 2018 16:01:50 GMT+0100 (Romance Standard Time)
 
-type AggregateUser {
+type Account implements Node {
+  id: ID!
+  roleType: String!
+  name: String!
+  employeeNo: String
+  email: String!
+  password: String!
+  hrChargeKr: Int
+}
+
+"""A connection to a list of items."""
+type AccountConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AccountEdge]!
+  aggregate: AggregateAccount!
+}
+
+input AccountCreateInput {
+  roleType: String!
+  name: String!
+  employeeNo: String
+  email: String!
+  password: String!
+  hrChargeKr: Int
+}
+
+input AccountCreateManyInput {
+  create: [AccountCreateInput!]
+  connect: [AccountWhereUniqueInput!]
+}
+
+input AccountCreateOneInput {
+  create: AccountCreateInput
+  connect: AccountWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type AccountEdge {
+  """The item at the end of the edge."""
+  node: Account!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AccountOrderByInput {
+  id_ASC
+  id_DESC
+  roleType_ASC
+  roleType_DESC
+  name_ASC
+  name_DESC
+  employeeNo_ASC
+  employeeNo_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  hrChargeKr_ASC
+  hrChargeKr_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type AccountPreviousValues {
+  id: ID!
+  roleType: String!
+  name: String!
+  employeeNo: String
+  email: String!
+  password: String!
+  hrChargeKr: Int
+}
+
+input AccountScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AccountScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccountScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccountScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  roleType: String
+
+  """All values that are not equal to given value."""
+  roleType_not: String
+
+  """All values that are contained in given list."""
+  roleType_in: [String!]
+
+  """All values that are not contained in given list."""
+  roleType_not_in: [String!]
+
+  """All values less than the given value."""
+  roleType_lt: String
+
+  """All values less than or equal the given value."""
+  roleType_lte: String
+
+  """All values greater than the given value."""
+  roleType_gt: String
+
+  """All values greater than or equal the given value."""
+  roleType_gte: String
+
+  """All values containing the given string."""
+  roleType_contains: String
+
+  """All values not containing the given string."""
+  roleType_not_contains: String
+
+  """All values starting with the given string."""
+  roleType_starts_with: String
+
+  """All values not starting with the given string."""
+  roleType_not_starts_with: String
+
+  """All values ending with the given string."""
+  roleType_ends_with: String
+
+  """All values not ending with the given string."""
+  roleType_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  employeeNo: String
+
+  """All values that are not equal to given value."""
+  employeeNo_not: String
+
+  """All values that are contained in given list."""
+  employeeNo_in: [String!]
+
+  """All values that are not contained in given list."""
+  employeeNo_not_in: [String!]
+
+  """All values less than the given value."""
+  employeeNo_lt: String
+
+  """All values less than or equal the given value."""
+  employeeNo_lte: String
+
+  """All values greater than the given value."""
+  employeeNo_gt: String
+
+  """All values greater than or equal the given value."""
+  employeeNo_gte: String
+
+  """All values containing the given string."""
+  employeeNo_contains: String
+
+  """All values not containing the given string."""
+  employeeNo_not_contains: String
+
+  """All values starting with the given string."""
+  employeeNo_starts_with: String
+
+  """All values not starting with the given string."""
+  employeeNo_not_starts_with: String
+
+  """All values ending with the given string."""
+  employeeNo_ends_with: String
+
+  """All values not ending with the given string."""
+  employeeNo_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  hrChargeKr: Int
+
+  """All values that are not equal to given value."""
+  hrChargeKr_not: Int
+
+  """All values that are contained in given list."""
+  hrChargeKr_in: [Int!]
+
+  """All values that are not contained in given list."""
+  hrChargeKr_not_in: [Int!]
+
+  """All values less than the given value."""
+  hrChargeKr_lt: Int
+
+  """All values less than or equal the given value."""
+  hrChargeKr_lte: Int
+
+  """All values greater than the given value."""
+  hrChargeKr_gt: Int
+
+  """All values greater than or equal the given value."""
+  hrChargeKr_gte: Int
+}
+
+type AccountSubscriptionPayload {
+  mutation: MutationType!
+  node: Account
+  updatedFields: [String!]
+  previousValues: AccountPreviousValues
+}
+
+input AccountSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AccountSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccountSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccountSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AccountWhereInput
+}
+
+input AccountUpdateDataInput {
+  roleType: String
+  name: String
+  employeeNo: String
+  email: String
+  password: String
+  hrChargeKr: Int
+}
+
+input AccountUpdateInput {
+  roleType: String
+  name: String
+  employeeNo: String
+  email: String
+  password: String
+  hrChargeKr: Int
+}
+
+input AccountUpdateManyDataInput {
+  roleType: String
+  name: String
+  employeeNo: String
+  email: String
+  password: String
+  hrChargeKr: Int
+}
+
+input AccountUpdateManyInput {
+  create: [AccountCreateInput!]
+  connect: [AccountWhereUniqueInput!]
+  disconnect: [AccountWhereUniqueInput!]
+  delete: [AccountWhereUniqueInput!]
+  update: [AccountUpdateWithWhereUniqueNestedInput!]
+  updateMany: [AccountUpdateManyWithWhereNestedInput!]
+  deleteMany: [AccountScalarWhereInput!]
+  upsert: [AccountUpsertWithWhereUniqueNestedInput!]
+}
+
+input AccountUpdateManyMutationInput {
+  roleType: String
+  name: String
+  employeeNo: String
+  email: String
+  password: String
+  hrChargeKr: Int
+}
+
+input AccountUpdateManyWithWhereNestedInput {
+  where: AccountScalarWhereInput!
+  data: AccountUpdateManyDataInput!
+}
+
+input AccountUpdateOneInput {
+  create: AccountCreateInput
+  connect: AccountWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: AccountUpdateDataInput
+  upsert: AccountUpsertNestedInput
+}
+
+input AccountUpdateOneRequiredInput {
+  create: AccountCreateInput
+  connect: AccountWhereUniqueInput
+  update: AccountUpdateDataInput
+  upsert: AccountUpsertNestedInput
+}
+
+input AccountUpdateWithWhereUniqueNestedInput {
+  where: AccountWhereUniqueInput!
+  data: AccountUpdateDataInput!
+}
+
+input AccountUpsertNestedInput {
+  update: AccountUpdateDataInput!
+  create: AccountCreateInput!
+}
+
+input AccountUpsertWithWhereUniqueNestedInput {
+  where: AccountWhereUniqueInput!
+  update: AccountUpdateDataInput!
+  create: AccountCreateInput!
+}
+
+input AccountWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AccountWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccountWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccountWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  roleType: String
+
+  """All values that are not equal to given value."""
+  roleType_not: String
+
+  """All values that are contained in given list."""
+  roleType_in: [String!]
+
+  """All values that are not contained in given list."""
+  roleType_not_in: [String!]
+
+  """All values less than the given value."""
+  roleType_lt: String
+
+  """All values less than or equal the given value."""
+  roleType_lte: String
+
+  """All values greater than the given value."""
+  roleType_gt: String
+
+  """All values greater than or equal the given value."""
+  roleType_gte: String
+
+  """All values containing the given string."""
+  roleType_contains: String
+
+  """All values not containing the given string."""
+  roleType_not_contains: String
+
+  """All values starting with the given string."""
+  roleType_starts_with: String
+
+  """All values not starting with the given string."""
+  roleType_not_starts_with: String
+
+  """All values ending with the given string."""
+  roleType_ends_with: String
+
+  """All values not ending with the given string."""
+  roleType_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  employeeNo: String
+
+  """All values that are not equal to given value."""
+  employeeNo_not: String
+
+  """All values that are contained in given list."""
+  employeeNo_in: [String!]
+
+  """All values that are not contained in given list."""
+  employeeNo_not_in: [String!]
+
+  """All values less than the given value."""
+  employeeNo_lt: String
+
+  """All values less than or equal the given value."""
+  employeeNo_lte: String
+
+  """All values greater than the given value."""
+  employeeNo_gt: String
+
+  """All values greater than or equal the given value."""
+  employeeNo_gte: String
+
+  """All values containing the given string."""
+  employeeNo_contains: String
+
+  """All values not containing the given string."""
+  employeeNo_not_contains: String
+
+  """All values starting with the given string."""
+  employeeNo_starts_with: String
+
+  """All values not starting with the given string."""
+  employeeNo_not_starts_with: String
+
+  """All values ending with the given string."""
+  employeeNo_ends_with: String
+
+  """All values not ending with the given string."""
+  employeeNo_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  hrChargeKr: Int
+
+  """All values that are not equal to given value."""
+  hrChargeKr_not: Int
+
+  """All values that are contained in given list."""
+  hrChargeKr_in: [Int!]
+
+  """All values that are not contained in given list."""
+  hrChargeKr_not_in: [Int!]
+
+  """All values less than the given value."""
+  hrChargeKr_lt: Int
+
+  """All values less than or equal the given value."""
+  hrChargeKr_lte: Int
+
+  """All values greater than the given value."""
+  hrChargeKr_gt: Int
+
+  """All values greater than or equal the given value."""
+  hrChargeKr_gte: Int
+}
+
+input AccountWhereUniqueInput {
+  id: ID
+  employeeNo: String
+  email: String
+}
+
+type AggregateAccount {
+  count: Int!
+}
+
+type AggregateExpense {
+  count: Int!
+}
+
+type AggregateJwt {
+  count: Int!
+}
+
+type AggregateProject {
+  count: Int!
+}
+
+type AggregateTimesheet {
+  count: Int!
+}
+
+type AggregateWorkPeriod {
   count: Int!
 }
 
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
+}
+
+scalar DateTime
+
+type Expense implements Node {
+  id: ID!
+  date: DateTime!
+  amtKr: Int!
+  registeredBy: Account!
+  confirmedBy: Account
+}
+
+"""A connection to a list of items."""
+type ExpenseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ExpenseEdge]!
+  aggregate: AggregateExpense!
+}
+
+input ExpenseCreateInput {
+  date: DateTime!
+  amtKr: Int!
+  registeredBy: AccountCreateOneInput!
+  confirmedBy: AccountCreateOneInput
+}
+
+"""An edge in a connection."""
+type ExpenseEdge {
+  """The item at the end of the edge."""
+  node: Expense!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ExpenseOrderByInput {
+  id_ASC
+  id_DESC
+  date_ASC
+  date_DESC
+  amtKr_ASC
+  amtKr_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ExpensePreviousValues {
+  id: ID!
+  date: DateTime!
+  amtKr: Int!
+}
+
+type ExpenseSubscriptionPayload {
+  mutation: MutationType!
+  node: Expense
+  updatedFields: [String!]
+  previousValues: ExpensePreviousValues
+}
+
+input ExpenseSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExpenseSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExpenseSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExpenseSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ExpenseWhereInput
+}
+
+input ExpenseUpdateInput {
+  date: DateTime
+  amtKr: Int
+  registeredBy: AccountUpdateOneRequiredInput
+  confirmedBy: AccountUpdateOneInput
+}
+
+input ExpenseUpdateManyMutationInput {
+  date: DateTime
+  amtKr: Int
+}
+
+input ExpenseWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExpenseWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExpenseWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExpenseWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  amtKr: Int
+
+  """All values that are not equal to given value."""
+  amtKr_not: Int
+
+  """All values that are contained in given list."""
+  amtKr_in: [Int!]
+
+  """All values that are not contained in given list."""
+  amtKr_not_in: [Int!]
+
+  """All values less than the given value."""
+  amtKr_lt: Int
+
+  """All values less than or equal the given value."""
+  amtKr_lte: Int
+
+  """All values greater than the given value."""
+  amtKr_gt: Int
+
+  """All values greater than or equal the given value."""
+  amtKr_gte: Int
+  registeredBy: AccountWhereInput
+  confirmedBy: AccountWhereInput
+}
+
+input ExpenseWhereUniqueInput {
+  id: ID
+}
+
+type Jwt {
+  JWT: String!
+  expires: DateTime!
+  user: Account!
+}
+
+"""A connection to a list of items."""
+type JwtConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [JwtEdge]!
+  aggregate: AggregateJwt!
+}
+
+input JwtCreateInput {
+  JWT: String!
+  expires: DateTime!
+  user: AccountCreateOneInput!
+}
+
+"""An edge in a connection."""
+type JwtEdge {
+  """The item at the end of the edge."""
+  node: Jwt!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum JwtOrderByInput {
+  JWT_ASC
+  JWT_DESC
+  expires_ASC
+  expires_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type JwtPreviousValues {
+  JWT: String!
+  expires: DateTime!
+}
+
+type JwtSubscriptionPayload {
+  mutation: MutationType!
+  node: Jwt
+  updatedFields: [String!]
+  previousValues: JwtPreviousValues
+}
+
+input JwtSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [JwtSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [JwtSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [JwtSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: JwtWhereInput
+}
+
+input JwtUpdateManyMutationInput {
+  JWT: String
+  expires: DateTime
+}
+
+input JwtWhereInput {
+  """Logical AND on all given filters."""
+  AND: [JwtWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [JwtWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [JwtWhereInput!]
+  JWT: String
+
+  """All values that are not equal to given value."""
+  JWT_not: String
+
+  """All values that are contained in given list."""
+  JWT_in: [String!]
+
+  """All values that are not contained in given list."""
+  JWT_not_in: [String!]
+
+  """All values less than the given value."""
+  JWT_lt: String
+
+  """All values less than or equal the given value."""
+  JWT_lte: String
+
+  """All values greater than the given value."""
+  JWT_gt: String
+
+  """All values greater than or equal the given value."""
+  JWT_gte: String
+
+  """All values containing the given string."""
+  JWT_contains: String
+
+  """All values not containing the given string."""
+  JWT_not_contains: String
+
+  """All values starting with the given string."""
+  JWT_starts_with: String
+
+  """All values not starting with the given string."""
+  JWT_not_starts_with: String
+
+  """All values ending with the given string."""
+  JWT_ends_with: String
+
+  """All values not ending with the given string."""
+  JWT_not_ends_with: String
+  expires: DateTime
+
+  """All values that are not equal to given value."""
+  expires_not: DateTime
+
+  """All values that are contained in given list."""
+  expires_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  expires_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  expires_lt: DateTime
+
+  """All values less than or equal the given value."""
+  expires_lte: DateTime
+
+  """All values greater than the given value."""
+  expires_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  expires_gte: DateTime
+  user: AccountWhereInput
 }
 
 """
@@ -17,12 +1165,39 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteUser(where: UserWhereUniqueInput!): User
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createJwt(data: JwtCreateInput!): Jwt!
+  createTimesheet(data: TimesheetCreateInput!): Timesheet!
+  createProject(data: ProjectCreateInput!): Project!
+  createExpense(data: ExpenseCreateInput!): Expense!
+  createWorkPeriod(data: WorkPeriodCreateInput!): WorkPeriod!
+  createAccount(data: AccountCreateInput!): Account!
+  updateTimesheet(data: TimesheetUpdateInput!, where: TimesheetWhereUniqueInput!): Timesheet
+  updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
+  updateExpense(data: ExpenseUpdateInput!, where: ExpenseWhereUniqueInput!): Expense
+  updateWorkPeriod(data: WorkPeriodUpdateInput!, where: WorkPeriodWhereUniqueInput!): WorkPeriod
+  updateAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account
+  deleteTimesheet(where: TimesheetWhereUniqueInput!): Timesheet
+  deleteProject(where: ProjectWhereUniqueInput!): Project
+  deleteExpense(where: ExpenseWhereUniqueInput!): Expense
+  deleteWorkPeriod(where: WorkPeriodWhereUniqueInput!): WorkPeriod
+  deleteAccount(where: AccountWhereUniqueInput!): Account
+  upsertTimesheet(where: TimesheetWhereUniqueInput!, create: TimesheetCreateInput!, update: TimesheetUpdateInput!): Timesheet!
+  upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
+  upsertExpense(where: ExpenseWhereUniqueInput!, create: ExpenseCreateInput!, update: ExpenseUpdateInput!): Expense!
+  upsertWorkPeriod(where: WorkPeriodWhereUniqueInput!, create: WorkPeriodCreateInput!, update: WorkPeriodUpdateInput!): WorkPeriod!
+  upsertAccount(where: AccountWhereUniqueInput!, create: AccountCreateInput!, update: AccountUpdateInput!): Account!
+  updateManyJwts(data: JwtUpdateManyMutationInput!, where: JwtWhereInput): BatchPayload!
+  updateManyTimesheets(data: TimesheetUpdateManyMutationInput!, where: TimesheetWhereInput): BatchPayload!
+  updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
+  updateManyExpenses(data: ExpenseUpdateManyMutationInput!, where: ExpenseWhereInput): BatchPayload!
+  updateManyWorkPeriods(data: WorkPeriodUpdateManyMutationInput!, where: WorkPeriodWhereInput): BatchPayload!
+  updateManyAccounts(data: AccountUpdateManyMutationInput!, where: AccountWhereInput): BatchPayload!
+  deleteManyJwts(where: JwtWhereInput): BatchPayload!
+  deleteManyTimesheets(where: TimesheetWhereInput): BatchPayload!
+  deleteManyProjects(where: ProjectWhereInput): BatchPayload!
+  deleteManyExpenses(where: ExpenseWhereInput): BatchPayload!
+  deleteManyWorkPeriods(where: WorkPeriodWhereInput): BatchPayload!
+  deleteManyAccounts(where: AccountWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -52,82 +1227,73 @@ type PageInfo {
   endCursor: String
 }
 
-type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  user(where: UserWhereUniqueInput!): User
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
-}
-
-type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type User implements Node {
+type Project implements Node {
   id: ID!
   name: String!
+  active: Boolean!
+  users(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account!]
 }
 
 """A connection to a list of items."""
-type UserConnection {
+type ProjectConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
+  edges: [ProjectEdge]!
+  aggregate: AggregateProject!
 }
 
-input UserCreateInput {
+input ProjectCreateInput {
   name: String!
+  active: Boolean
+  users: AccountCreateManyInput
 }
 
 """An edge in a connection."""
-type UserEdge {
+type ProjectEdge {
   """The item at the end of the edge."""
-  node: User!
+  node: Project!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum UserOrderByInput {
+enum ProjectOrderByInput {
   id_ASC
   id_DESC
   name_ASC
   name_DESC
+  active_ASC
+  active_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
 
-type UserPreviousValues {
+type ProjectPreviousValues {
   id: ID!
   name: String!
+  active: Boolean!
 }
 
-type UserSubscriptionPayload {
+type ProjectSubscriptionPayload {
   mutation: MutationType!
-  node: User
+  node: Project
   updatedFields: [String!]
-  previousValues: UserPreviousValues
+  previousValues: ProjectPreviousValues
 }
 
-input UserSubscriptionWhereInput {
+input ProjectSubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [UserSubscriptionWhereInput!]
+  AND: [ProjectSubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [UserSubscriptionWhereInput!]
+  OR: [ProjectSubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [UserSubscriptionWhereInput!]
+  NOT: [ProjectSubscriptionWhereInput!]
 
   """
   The subscription event gets dispatched when it's listed in mutation_in
@@ -148,26 +1314,29 @@ input UserSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: UserWhereInput
+  node: ProjectWhereInput
 }
 
-input UserUpdateInput {
+input ProjectUpdateInput {
   name: String
+  active: Boolean
+  users: AccountUpdateManyInput
 }
 
-input UserUpdateManyMutationInput {
+input ProjectUpdateManyMutationInput {
   name: String
+  active: Boolean
 }
 
-input UserWhereInput {
+input ProjectWhereInput {
   """Logical AND on all given filters."""
-  AND: [UserWhereInput!]
+  AND: [ProjectWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [UserWhereInput!]
+  OR: [ProjectWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [UserWhereInput!]
+  NOT: [ProjectWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -248,8 +1417,605 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
+  users_every: AccountWhereInput
+  users_some: AccountWhereInput
+  users_none: AccountWhereInput
 }
 
-input UserWhereUniqueInput {
+input ProjectWhereUniqueInput {
+  id: ID
+}
+
+type Query {
+  jwts(where: JwtWhereInput, orderBy: JwtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Jwt]!
+  timesheets(where: TimesheetWhereInput, orderBy: TimesheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Timesheet]!
+  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
+  expenses(where: ExpenseWhereInput, orderBy: ExpenseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Expense]!
+  workPeriods(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WorkPeriod]!
+  accounts(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account]!
+  timesheet(where: TimesheetWhereUniqueInput!): Timesheet
+  project(where: ProjectWhereUniqueInput!): Project
+  expense(where: ExpenseWhereUniqueInput!): Expense
+  workPeriod(where: WorkPeriodWhereUniqueInput!): WorkPeriod
+  account(where: AccountWhereUniqueInput!): Account
+  jwtsConnection(where: JwtWhereInput, orderBy: JwtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): JwtConnection!
+  timesheetsConnection(where: TimesheetWhereInput, orderBy: TimesheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TimesheetConnection!
+  projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
+  expensesConnection(where: ExpenseWhereInput, orderBy: ExpenseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExpenseConnection!
+  workPeriodsConnection(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WorkPeriodConnection!
+  accountsConnection(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccountConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  jwt(where: JwtSubscriptionWhereInput): JwtSubscriptionPayload
+  timesheet(where: TimesheetSubscriptionWhereInput): TimesheetSubscriptionPayload
+  project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
+  expense(where: ExpenseSubscriptionWhereInput): ExpenseSubscriptionPayload
+  workPeriod(where: WorkPeriodSubscriptionWhereInput): WorkPeriodSubscriptionPayload
+  account(where: AccountSubscriptionWhereInput): AccountSubscriptionPayload
+}
+
+type Timesheet implements Node {
+  id: ID!
+  user: Account!
+  confirmedBy: Account
+  from: DateTime!
+  to: DateTime!
+  workPeriods(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WorkPeriod!]
+}
+
+"""A connection to a list of items."""
+type TimesheetConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TimesheetEdge]!
+  aggregate: AggregateTimesheet!
+}
+
+input TimesheetCreateInput {
+  from: DateTime!
+  to: DateTime!
+  user: AccountCreateOneInput!
+  confirmedBy: AccountCreateOneInput
+  workPeriods: WorkPeriodCreateManyInput
+}
+
+"""An edge in a connection."""
+type TimesheetEdge {
+  """The item at the end of the edge."""
+  node: Timesheet!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum TimesheetOrderByInput {
+  id_ASC
+  id_DESC
+  from_ASC
+  from_DESC
+  to_ASC
+  to_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type TimesheetPreviousValues {
+  id: ID!
+  from: DateTime!
+  to: DateTime!
+}
+
+type TimesheetSubscriptionPayload {
+  mutation: MutationType!
+  node: Timesheet
+  updatedFields: [String!]
+  previousValues: TimesheetPreviousValues
+}
+
+input TimesheetSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TimesheetSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TimesheetSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TimesheetSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TimesheetWhereInput
+}
+
+input TimesheetUpdateInput {
+  from: DateTime
+  to: DateTime
+  user: AccountUpdateOneRequiredInput
+  confirmedBy: AccountUpdateOneInput
+  workPeriods: WorkPeriodUpdateManyInput
+}
+
+input TimesheetUpdateManyMutationInput {
+  from: DateTime
+  to: DateTime
+}
+
+input TimesheetWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TimesheetWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TimesheetWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TimesheetWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  from: DateTime
+
+  """All values that are not equal to given value."""
+  from_not: DateTime
+
+  """All values that are contained in given list."""
+  from_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  from_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  from_lt: DateTime
+
+  """All values less than or equal the given value."""
+  from_lte: DateTime
+
+  """All values greater than the given value."""
+  from_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  from_gte: DateTime
+  to: DateTime
+
+  """All values that are not equal to given value."""
+  to_not: DateTime
+
+  """All values that are contained in given list."""
+  to_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  to_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  to_lt: DateTime
+
+  """All values less than or equal the given value."""
+  to_lte: DateTime
+
+  """All values greater than the given value."""
+  to_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  to_gte: DateTime
+  user: AccountWhereInput
+  confirmedBy: AccountWhereInput
+  workPeriods_every: WorkPeriodWhereInput
+  workPeriods_some: WorkPeriodWhereInput
+  workPeriods_none: WorkPeriodWhereInput
+}
+
+input TimesheetWhereUniqueInput {
+  id: ID
+}
+
+type WorkPeriod implements Node {
+  id: ID!
+  from: DateTime!
+  to: DateTime!
+  user: Account!
+  confirmedBy: Account
+}
+
+"""A connection to a list of items."""
+type WorkPeriodConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [WorkPeriodEdge]!
+  aggregate: AggregateWorkPeriod!
+}
+
+input WorkPeriodCreateInput {
+  from: DateTime!
+  to: DateTime!
+  user: AccountCreateOneInput!
+  confirmedBy: AccountCreateOneInput
+}
+
+input WorkPeriodCreateManyInput {
+  create: [WorkPeriodCreateInput!]
+  connect: [WorkPeriodWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type WorkPeriodEdge {
+  """The item at the end of the edge."""
+  node: WorkPeriod!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum WorkPeriodOrderByInput {
+  id_ASC
+  id_DESC
+  from_ASC
+  from_DESC
+  to_ASC
+  to_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type WorkPeriodPreviousValues {
+  id: ID!
+  from: DateTime!
+  to: DateTime!
+}
+
+input WorkPeriodScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WorkPeriodScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WorkPeriodScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WorkPeriodScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  from: DateTime
+
+  """All values that are not equal to given value."""
+  from_not: DateTime
+
+  """All values that are contained in given list."""
+  from_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  from_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  from_lt: DateTime
+
+  """All values less than or equal the given value."""
+  from_lte: DateTime
+
+  """All values greater than the given value."""
+  from_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  from_gte: DateTime
+  to: DateTime
+
+  """All values that are not equal to given value."""
+  to_not: DateTime
+
+  """All values that are contained in given list."""
+  to_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  to_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  to_lt: DateTime
+
+  """All values less than or equal the given value."""
+  to_lte: DateTime
+
+  """All values greater than the given value."""
+  to_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  to_gte: DateTime
+}
+
+type WorkPeriodSubscriptionPayload {
+  mutation: MutationType!
+  node: WorkPeriod
+  updatedFields: [String!]
+  previousValues: WorkPeriodPreviousValues
+}
+
+input WorkPeriodSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WorkPeriodSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WorkPeriodSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WorkPeriodSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: WorkPeriodWhereInput
+}
+
+input WorkPeriodUpdateDataInput {
+  from: DateTime
+  to: DateTime
+  user: AccountUpdateOneRequiredInput
+  confirmedBy: AccountUpdateOneInput
+}
+
+input WorkPeriodUpdateInput {
+  from: DateTime
+  to: DateTime
+  user: AccountUpdateOneRequiredInput
+  confirmedBy: AccountUpdateOneInput
+}
+
+input WorkPeriodUpdateManyDataInput {
+  from: DateTime
+  to: DateTime
+}
+
+input WorkPeriodUpdateManyInput {
+  create: [WorkPeriodCreateInput!]
+  connect: [WorkPeriodWhereUniqueInput!]
+  disconnect: [WorkPeriodWhereUniqueInput!]
+  delete: [WorkPeriodWhereUniqueInput!]
+  update: [WorkPeriodUpdateWithWhereUniqueNestedInput!]
+  updateMany: [WorkPeriodUpdateManyWithWhereNestedInput!]
+  deleteMany: [WorkPeriodScalarWhereInput!]
+  upsert: [WorkPeriodUpsertWithWhereUniqueNestedInput!]
+}
+
+input WorkPeriodUpdateManyMutationInput {
+  from: DateTime
+  to: DateTime
+}
+
+input WorkPeriodUpdateManyWithWhereNestedInput {
+  where: WorkPeriodScalarWhereInput!
+  data: WorkPeriodUpdateManyDataInput!
+}
+
+input WorkPeriodUpdateWithWhereUniqueNestedInput {
+  where: WorkPeriodWhereUniqueInput!
+  data: WorkPeriodUpdateDataInput!
+}
+
+input WorkPeriodUpsertWithWhereUniqueNestedInput {
+  where: WorkPeriodWhereUniqueInput!
+  update: WorkPeriodUpdateDataInput!
+  create: WorkPeriodCreateInput!
+}
+
+input WorkPeriodWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WorkPeriodWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WorkPeriodWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WorkPeriodWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  from: DateTime
+
+  """All values that are not equal to given value."""
+  from_not: DateTime
+
+  """All values that are contained in given list."""
+  from_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  from_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  from_lt: DateTime
+
+  """All values less than or equal the given value."""
+  from_lte: DateTime
+
+  """All values greater than the given value."""
+  from_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  from_gte: DateTime
+  to: DateTime
+
+  """All values that are not equal to given value."""
+  to_not: DateTime
+
+  """All values that are contained in given list."""
+  to_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  to_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  to_lt: DateTime
+
+  """All values less than or equal the given value."""
+  to_lte: DateTime
+
+  """All values greater than the given value."""
+  to_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  to_gte: DateTime
+  user: AccountWhereInput
+  confirmedBy: AccountWhereInput
+}
+
+input WorkPeriodWhereUniqueInput {
   id: ID
 }
