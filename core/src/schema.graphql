@@ -1,7 +1,33 @@
+# import * from './generated/prisma.graphql'
+type SuccessMessage {
+  message: String
+}
+
 type Mutation {
-  hi: String
+  login(username: String, password: String!): Account!
+  signout: SuccessMessage
+  createUser(email: String!, password: String!, name:String!, roleType:String!, hrChargeKr: Int): Account!
+  createTimesheet(to:DateTime!, from: DateTime!): Timesheet!
+  confirmTimesheet(id: ID!): Timesheet!
+  createWorkPeriod(endTime:DateTime, startTime: DateTime!): WorkPeriod!
+  deleteWorkPeriod(id:ID!): WorkPeriod
+  confirmWorkPeriod(id: ID!): WorkPeriod!
+  createProject(name: String!): Project!
+  deleteProject(id: ID!): Project
+  addUserToProject(userId: ID!): Project!
+  removeUserFromProject(userId: ID!): Project!
+  createExpense(amtKr: Int!, description: String, projectId: ID!): Expense!
+  removeExpense(id: ID!): Expense
+  confirmExpense(id: ID!): Expense!
 }
 
 type Query {
-  hi: String
+  self: Account
+  user(id: ID!): Account
+  users: [Account]!
+  userTimesheet(userId:ID!): [Timesheet]!
+  timesheet(id: ID!): Timesheet
+  workPeriod(id: ID!): WorkPeriod
+  project(id: ID!): Project
+  projects(id: ID!, active: Boolean): [Project]!
 }
