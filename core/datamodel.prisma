@@ -6,12 +6,13 @@ type Account {
   email: String! @unique
   password: String!
   hrChargeKr: Int
+  projects: [Project!]
 }
 
 type Jwt {
   JWT: String!
   expires: DateTime!
-  user: Account! 
+  user: Account!
 }
 
 type Timesheet {
@@ -35,11 +36,13 @@ type Project {
   id: ID! @unique
   name: String!
   active: Boolean! @default(value: "true")
-  users: [Account!]!
+  users: [Account!]
+  expenses: [Expense!]
 }
 
 type Expense {
   id: ID! @unique
+  description: String
   date: DateTime!
   amtKr: Int!
   registeredBy: Account! @relation(name: "ExpenseByUser")
