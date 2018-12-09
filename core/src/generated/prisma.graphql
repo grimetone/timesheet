@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/sean-aede1d/timesheet/dev
-# timestamp: Sat Dec 01 2018 16:01:50 GMT+0100 (Romance Standard Time)
+# timestamp: Sun Dec 09 2018 12:18:22 GMT+0100 (Romance Standard Time)
 
 type Account implements Node {
   id: ID!
@@ -9,6 +9,7 @@ type Account implements Node {
   email: String!
   password: String!
   hrChargeKr: Int
+  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
 }
 
 """A connection to a list of items."""
@@ -28,16 +29,26 @@ input AccountCreateInput {
   email: String!
   password: String!
   hrChargeKr: Int
+  projects: ProjectCreateManyWithoutUsersInput
 }
 
-input AccountCreateManyInput {
-  create: [AccountCreateInput!]
+input AccountCreateManyWithoutProjectsInput {
+  create: [AccountCreateWithoutProjectsInput!]
   connect: [AccountWhereUniqueInput!]
 }
 
 input AccountCreateOneInput {
   create: AccountCreateInput
   connect: AccountWhereUniqueInput
+}
+
+input AccountCreateWithoutProjectsInput {
+  roleType: String!
+  name: String!
+  employeeNo: String
+  email: String!
+  password: String!
+  hrChargeKr: Int
 }
 
 """An edge in a connection."""
@@ -399,6 +410,7 @@ input AccountUpdateDataInput {
   email: String
   password: String
   hrChargeKr: Int
+  projects: ProjectUpdateManyWithoutUsersInput
 }
 
 input AccountUpdateInput {
@@ -408,6 +420,7 @@ input AccountUpdateInput {
   email: String
   password: String
   hrChargeKr: Int
+  projects: ProjectUpdateManyWithoutUsersInput
 }
 
 input AccountUpdateManyDataInput {
@@ -419,17 +432,6 @@ input AccountUpdateManyDataInput {
   hrChargeKr: Int
 }
 
-input AccountUpdateManyInput {
-  create: [AccountCreateInput!]
-  connect: [AccountWhereUniqueInput!]
-  disconnect: [AccountWhereUniqueInput!]
-  delete: [AccountWhereUniqueInput!]
-  update: [AccountUpdateWithWhereUniqueNestedInput!]
-  updateMany: [AccountUpdateManyWithWhereNestedInput!]
-  deleteMany: [AccountScalarWhereInput!]
-  upsert: [AccountUpsertWithWhereUniqueNestedInput!]
-}
-
 input AccountUpdateManyMutationInput {
   roleType: String
   name: String
@@ -437,6 +439,17 @@ input AccountUpdateManyMutationInput {
   email: String
   password: String
   hrChargeKr: Int
+}
+
+input AccountUpdateManyWithoutProjectsInput {
+  create: [AccountCreateWithoutProjectsInput!]
+  connect: [AccountWhereUniqueInput!]
+  disconnect: [AccountWhereUniqueInput!]
+  delete: [AccountWhereUniqueInput!]
+  update: [AccountUpdateWithWhereUniqueWithoutProjectsInput!]
+  updateMany: [AccountUpdateManyWithWhereNestedInput!]
+  deleteMany: [AccountScalarWhereInput!]
+  upsert: [AccountUpsertWithWhereUniqueWithoutProjectsInput!]
 }
 
 input AccountUpdateManyWithWhereNestedInput {
@@ -460,9 +473,18 @@ input AccountUpdateOneRequiredInput {
   upsert: AccountUpsertNestedInput
 }
 
-input AccountUpdateWithWhereUniqueNestedInput {
+input AccountUpdateWithoutProjectsDataInput {
+  roleType: String
+  name: String
+  employeeNo: String
+  email: String
+  password: String
+  hrChargeKr: Int
+}
+
+input AccountUpdateWithWhereUniqueWithoutProjectsInput {
   where: AccountWhereUniqueInput!
-  data: AccountUpdateDataInput!
+  data: AccountUpdateWithoutProjectsDataInput!
 }
 
 input AccountUpsertNestedInput {
@@ -470,10 +492,10 @@ input AccountUpsertNestedInput {
   create: AccountCreateInput!
 }
 
-input AccountUpsertWithWhereUniqueNestedInput {
+input AccountUpsertWithWhereUniqueWithoutProjectsInput {
   where: AccountWhereUniqueInput!
-  update: AccountUpdateDataInput!
-  create: AccountCreateInput!
+  update: AccountUpdateWithoutProjectsDataInput!
+  create: AccountCreateWithoutProjectsInput!
 }
 
 input AccountWhereInput {
@@ -747,6 +769,9 @@ input AccountWhereInput {
 
   """All values greater than or equal the given value."""
   hrChargeKr_gte: Int
+  projects_every: ProjectWhereInput
+  projects_some: ProjectWhereInput
+  projects_none: ProjectWhereInput
 }
 
 input AccountWhereUniqueInput {
@@ -788,6 +813,7 @@ scalar DateTime
 
 type Expense implements Node {
   id: ID!
+  description: String
   date: DateTime!
   amtKr: Int!
   registeredBy: Account!
@@ -805,10 +831,16 @@ type ExpenseConnection {
 }
 
 input ExpenseCreateInput {
+  description: String
   date: DateTime!
   amtKr: Int!
   registeredBy: AccountCreateOneInput!
   confirmedBy: AccountCreateOneInput
+}
+
+input ExpenseCreateManyInput {
+  create: [ExpenseCreateInput!]
+  connect: [ExpenseWhereUniqueInput!]
 }
 
 """An edge in a connection."""
@@ -823,6 +855,8 @@ type ExpenseEdge {
 enum ExpenseOrderByInput {
   id_ASC
   id_DESC
+  description_ASC
+  description_DESC
   date_ASC
   date_DESC
   amtKr_ASC
@@ -835,8 +869,144 @@ enum ExpenseOrderByInput {
 
 type ExpensePreviousValues {
   id: ID!
+  description: String
   date: DateTime!
   amtKr: Int!
+}
+
+input ExpenseScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExpenseScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExpenseScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExpenseScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  amtKr: Int
+
+  """All values that are not equal to given value."""
+  amtKr_not: Int
+
+  """All values that are contained in given list."""
+  amtKr_in: [Int!]
+
+  """All values that are not contained in given list."""
+  amtKr_not_in: [Int!]
+
+  """All values less than the given value."""
+  amtKr_lt: Int
+
+  """All values less than or equal the given value."""
+  amtKr_lte: Int
+
+  """All values greater than the given value."""
+  amtKr_gt: Int
+
+  """All values greater than or equal the given value."""
+  amtKr_gte: Int
 }
 
 type ExpenseSubscriptionPayload {
@@ -878,16 +1048,59 @@ input ExpenseSubscriptionWhereInput {
   node: ExpenseWhereInput
 }
 
-input ExpenseUpdateInput {
+input ExpenseUpdateDataInput {
+  description: String
   date: DateTime
   amtKr: Int
   registeredBy: AccountUpdateOneRequiredInput
   confirmedBy: AccountUpdateOneInput
 }
 
-input ExpenseUpdateManyMutationInput {
+input ExpenseUpdateInput {
+  description: String
   date: DateTime
   amtKr: Int
+  registeredBy: AccountUpdateOneRequiredInput
+  confirmedBy: AccountUpdateOneInput
+}
+
+input ExpenseUpdateManyDataInput {
+  description: String
+  date: DateTime
+  amtKr: Int
+}
+
+input ExpenseUpdateManyInput {
+  create: [ExpenseCreateInput!]
+  connect: [ExpenseWhereUniqueInput!]
+  disconnect: [ExpenseWhereUniqueInput!]
+  delete: [ExpenseWhereUniqueInput!]
+  update: [ExpenseUpdateWithWhereUniqueNestedInput!]
+  updateMany: [ExpenseUpdateManyWithWhereNestedInput!]
+  deleteMany: [ExpenseScalarWhereInput!]
+  upsert: [ExpenseUpsertWithWhereUniqueNestedInput!]
+}
+
+input ExpenseUpdateManyMutationInput {
+  description: String
+  date: DateTime
+  amtKr: Int
+}
+
+input ExpenseUpdateManyWithWhereNestedInput {
+  where: ExpenseScalarWhereInput!
+  data: ExpenseUpdateManyDataInput!
+}
+
+input ExpenseUpdateWithWhereUniqueNestedInput {
+  where: ExpenseWhereUniqueInput!
+  data: ExpenseUpdateDataInput!
+}
+
+input ExpenseUpsertWithWhereUniqueNestedInput {
+  where: ExpenseWhereUniqueInput!
+  update: ExpenseUpdateDataInput!
+  create: ExpenseCreateInput!
 }
 
 input ExpenseWhereInput {
@@ -939,6 +1152,46 @@ input ExpenseWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
   date: DateTime
 
   """All values that are not equal to given value."""
@@ -1167,36 +1420,36 @@ scalar Long
 type Mutation {
   createJwt(data: JwtCreateInput!): Jwt!
   createTimesheet(data: TimesheetCreateInput!): Timesheet!
+  createWorkPeriod(data: WorkPeriodCreateInput!): WorkPeriod!
   createProject(data: ProjectCreateInput!): Project!
   createExpense(data: ExpenseCreateInput!): Expense!
-  createWorkPeriod(data: WorkPeriodCreateInput!): WorkPeriod!
   createAccount(data: AccountCreateInput!): Account!
   updateTimesheet(data: TimesheetUpdateInput!, where: TimesheetWhereUniqueInput!): Timesheet
+  updateWorkPeriod(data: WorkPeriodUpdateInput!, where: WorkPeriodWhereUniqueInput!): WorkPeriod
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
   updateExpense(data: ExpenseUpdateInput!, where: ExpenseWhereUniqueInput!): Expense
-  updateWorkPeriod(data: WorkPeriodUpdateInput!, where: WorkPeriodWhereUniqueInput!): WorkPeriod
   updateAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account
   deleteTimesheet(where: TimesheetWhereUniqueInput!): Timesheet
+  deleteWorkPeriod(where: WorkPeriodWhereUniqueInput!): WorkPeriod
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteExpense(where: ExpenseWhereUniqueInput!): Expense
-  deleteWorkPeriod(where: WorkPeriodWhereUniqueInput!): WorkPeriod
   deleteAccount(where: AccountWhereUniqueInput!): Account
   upsertTimesheet(where: TimesheetWhereUniqueInput!, create: TimesheetCreateInput!, update: TimesheetUpdateInput!): Timesheet!
+  upsertWorkPeriod(where: WorkPeriodWhereUniqueInput!, create: WorkPeriodCreateInput!, update: WorkPeriodUpdateInput!): WorkPeriod!
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
   upsertExpense(where: ExpenseWhereUniqueInput!, create: ExpenseCreateInput!, update: ExpenseUpdateInput!): Expense!
-  upsertWorkPeriod(where: WorkPeriodWhereUniqueInput!, create: WorkPeriodCreateInput!, update: WorkPeriodUpdateInput!): WorkPeriod!
   upsertAccount(where: AccountWhereUniqueInput!, create: AccountCreateInput!, update: AccountUpdateInput!): Account!
   updateManyJwts(data: JwtUpdateManyMutationInput!, where: JwtWhereInput): BatchPayload!
   updateManyTimesheets(data: TimesheetUpdateManyMutationInput!, where: TimesheetWhereInput): BatchPayload!
+  updateManyWorkPeriods(data: WorkPeriodUpdateManyMutationInput!, where: WorkPeriodWhereInput): BatchPayload!
   updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
   updateManyExpenses(data: ExpenseUpdateManyMutationInput!, where: ExpenseWhereInput): BatchPayload!
-  updateManyWorkPeriods(data: WorkPeriodUpdateManyMutationInput!, where: WorkPeriodWhereInput): BatchPayload!
   updateManyAccounts(data: AccountUpdateManyMutationInput!, where: AccountWhereInput): BatchPayload!
   deleteManyJwts(where: JwtWhereInput): BatchPayload!
   deleteManyTimesheets(where: TimesheetWhereInput): BatchPayload!
+  deleteManyWorkPeriods(where: WorkPeriodWhereInput): BatchPayload!
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
   deleteManyExpenses(where: ExpenseWhereInput): BatchPayload!
-  deleteManyWorkPeriods(where: WorkPeriodWhereInput): BatchPayload!
   deleteManyAccounts(where: AccountWhereInput): BatchPayload!
 }
 
@@ -1232,6 +1485,7 @@ type Project implements Node {
   name: String!
   active: Boolean!
   users(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account!]
+  expenses(where: ExpenseWhereInput, orderBy: ExpenseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Expense!]
 }
 
 """A connection to a list of items."""
@@ -1247,7 +1501,19 @@ type ProjectConnection {
 input ProjectCreateInput {
   name: String!
   active: Boolean
-  users: AccountCreateManyInput
+  users: AccountCreateManyWithoutProjectsInput
+  expenses: ExpenseCreateManyInput
+}
+
+input ProjectCreateManyWithoutUsersInput {
+  create: [ProjectCreateWithoutUsersInput!]
+  connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateWithoutUsersInput {
+  name: String!
+  active: Boolean
+  expenses: ExpenseCreateManyInput
 }
 
 """An edge in a connection."""
@@ -1276,6 +1542,101 @@ type ProjectPreviousValues {
   id: ID!
   name: String!
   active: Boolean!
+}
+
+input ProjectScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ProjectScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ProjectScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ProjectScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
 }
 
 type ProjectSubscriptionPayload {
@@ -1320,12 +1681,51 @@ input ProjectSubscriptionWhereInput {
 input ProjectUpdateInput {
   name: String
   active: Boolean
-  users: AccountUpdateManyInput
+  users: AccountUpdateManyWithoutProjectsInput
+  expenses: ExpenseUpdateManyInput
+}
+
+input ProjectUpdateManyDataInput {
+  name: String
+  active: Boolean
 }
 
 input ProjectUpdateManyMutationInput {
   name: String
   active: Boolean
+}
+
+input ProjectUpdateManyWithoutUsersInput {
+  create: [ProjectCreateWithoutUsersInput!]
+  connect: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  delete: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutUsersInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutUsersInput!]
+}
+
+input ProjectUpdateManyWithWhereNestedInput {
+  where: ProjectScalarWhereInput!
+  data: ProjectUpdateManyDataInput!
+}
+
+input ProjectUpdateWithoutUsersDataInput {
+  name: String
+  active: Boolean
+  expenses: ExpenseUpdateManyInput
+}
+
+input ProjectUpdateWithWhereUniqueWithoutUsersInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutUsersDataInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutUsersInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutUsersDataInput!
+  create: ProjectCreateWithoutUsersInput!
 }
 
 input ProjectWhereInput {
@@ -1424,6 +1824,9 @@ input ProjectWhereInput {
   users_every: AccountWhereInput
   users_some: AccountWhereInput
   users_none: AccountWhereInput
+  expenses_every: ExpenseWhereInput
+  expenses_some: ExpenseWhereInput
+  expenses_none: ExpenseWhereInput
 }
 
 input ProjectWhereUniqueInput {
@@ -1433,20 +1836,20 @@ input ProjectWhereUniqueInput {
 type Query {
   jwts(where: JwtWhereInput, orderBy: JwtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Jwt]!
   timesheets(where: TimesheetWhereInput, orderBy: TimesheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Timesheet]!
+  workPeriods(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WorkPeriod]!
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
   expenses(where: ExpenseWhereInput, orderBy: ExpenseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Expense]!
-  workPeriods(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WorkPeriod]!
   accounts(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account]!
   timesheet(where: TimesheetWhereUniqueInput!): Timesheet
+  workPeriod(where: WorkPeriodWhereUniqueInput!): WorkPeriod
   project(where: ProjectWhereUniqueInput!): Project
   expense(where: ExpenseWhereUniqueInput!): Expense
-  workPeriod(where: WorkPeriodWhereUniqueInput!): WorkPeriod
   account(where: AccountWhereUniqueInput!): Account
   jwtsConnection(where: JwtWhereInput, orderBy: JwtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): JwtConnection!
   timesheetsConnection(where: TimesheetWhereInput, orderBy: TimesheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TimesheetConnection!
+  workPeriodsConnection(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WorkPeriodConnection!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
   expensesConnection(where: ExpenseWhereInput, orderBy: ExpenseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExpenseConnection!
-  workPeriodsConnection(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WorkPeriodConnection!
   accountsConnection(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccountConnection!
 
   """Fetches an object given its ID"""
@@ -1459,9 +1862,9 @@ type Query {
 type Subscription {
   jwt(where: JwtSubscriptionWhereInput): JwtSubscriptionPayload
   timesheet(where: TimesheetSubscriptionWhereInput): TimesheetSubscriptionPayload
+  workPeriod(where: WorkPeriodSubscriptionWhereInput): WorkPeriodSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
   expense(where: ExpenseSubscriptionWhereInput): ExpenseSubscriptionPayload
-  workPeriod(where: WorkPeriodSubscriptionWhereInput): WorkPeriodSubscriptionPayload
   account(where: AccountSubscriptionWhereInput): AccountSubscriptionPayload
 }
 
@@ -1489,7 +1892,19 @@ input TimesheetCreateInput {
   to: DateTime!
   user: AccountCreateOneInput!
   confirmedBy: AccountCreateOneInput
-  workPeriods: WorkPeriodCreateManyInput
+  workPeriods: WorkPeriodCreateManyWithoutTimesheetInput
+}
+
+input TimesheetCreateOneWithoutWorkPeriodsInput {
+  create: TimesheetCreateWithoutWorkPeriodsInput
+  connect: TimesheetWhereUniqueInput
+}
+
+input TimesheetCreateWithoutWorkPeriodsInput {
+  from: DateTime!
+  to: DateTime!
+  user: AccountCreateOneInput!
+  confirmedBy: AccountCreateOneInput
 }
 
 """An edge in a connection."""
@@ -1564,12 +1979,31 @@ input TimesheetUpdateInput {
   to: DateTime
   user: AccountUpdateOneRequiredInput
   confirmedBy: AccountUpdateOneInput
-  workPeriods: WorkPeriodUpdateManyInput
+  workPeriods: WorkPeriodUpdateManyWithoutTimesheetInput
 }
 
 input TimesheetUpdateManyMutationInput {
   from: DateTime
   to: DateTime
+}
+
+input TimesheetUpdateOneRequiredWithoutWorkPeriodsInput {
+  create: TimesheetCreateWithoutWorkPeriodsInput
+  connect: TimesheetWhereUniqueInput
+  update: TimesheetUpdateWithoutWorkPeriodsDataInput
+  upsert: TimesheetUpsertWithoutWorkPeriodsInput
+}
+
+input TimesheetUpdateWithoutWorkPeriodsDataInput {
+  from: DateTime
+  to: DateTime
+  user: AccountUpdateOneRequiredInput
+  confirmedBy: AccountUpdateOneInput
+}
+
+input TimesheetUpsertWithoutWorkPeriodsInput {
+  update: TimesheetUpdateWithoutWorkPeriodsDataInput!
+  create: TimesheetCreateWithoutWorkPeriodsInput!
 }
 
 input TimesheetWhereInput {
@@ -1679,8 +2113,8 @@ input TimesheetWhereUniqueInput {
 type WorkPeriod implements Node {
   id: ID!
   from: DateTime!
-  to: DateTime!
-  user: Account!
+  to: DateTime
+  timesheet: Timesheet!
   confirmedBy: Account
 }
 
@@ -1696,14 +2130,20 @@ type WorkPeriodConnection {
 
 input WorkPeriodCreateInput {
   from: DateTime!
-  to: DateTime!
-  user: AccountCreateOneInput!
+  to: DateTime
+  timesheet: TimesheetCreateOneWithoutWorkPeriodsInput!
   confirmedBy: AccountCreateOneInput
 }
 
-input WorkPeriodCreateManyInput {
-  create: [WorkPeriodCreateInput!]
+input WorkPeriodCreateManyWithoutTimesheetInput {
+  create: [WorkPeriodCreateWithoutTimesheetInput!]
   connect: [WorkPeriodWhereUniqueInput!]
+}
+
+input WorkPeriodCreateWithoutTimesheetInput {
+  from: DateTime!
+  to: DateTime
+  confirmedBy: AccountCreateOneInput
 }
 
 """An edge in a connection."""
@@ -1731,7 +2171,7 @@ enum WorkPeriodOrderByInput {
 type WorkPeriodPreviousValues {
   id: ID!
   from: DateTime!
-  to: DateTime!
+  to: DateTime
 }
 
 input WorkPeriodScalarWhereInput {
@@ -1868,17 +2308,10 @@ input WorkPeriodSubscriptionWhereInput {
   node: WorkPeriodWhereInput
 }
 
-input WorkPeriodUpdateDataInput {
-  from: DateTime
-  to: DateTime
-  user: AccountUpdateOneRequiredInput
-  confirmedBy: AccountUpdateOneInput
-}
-
 input WorkPeriodUpdateInput {
   from: DateTime
   to: DateTime
-  user: AccountUpdateOneRequiredInput
+  timesheet: TimesheetUpdateOneRequiredWithoutWorkPeriodsInput
   confirmedBy: AccountUpdateOneInput
 }
 
@@ -1887,20 +2320,20 @@ input WorkPeriodUpdateManyDataInput {
   to: DateTime
 }
 
-input WorkPeriodUpdateManyInput {
-  create: [WorkPeriodCreateInput!]
-  connect: [WorkPeriodWhereUniqueInput!]
-  disconnect: [WorkPeriodWhereUniqueInput!]
-  delete: [WorkPeriodWhereUniqueInput!]
-  update: [WorkPeriodUpdateWithWhereUniqueNestedInput!]
-  updateMany: [WorkPeriodUpdateManyWithWhereNestedInput!]
-  deleteMany: [WorkPeriodScalarWhereInput!]
-  upsert: [WorkPeriodUpsertWithWhereUniqueNestedInput!]
-}
-
 input WorkPeriodUpdateManyMutationInput {
   from: DateTime
   to: DateTime
+}
+
+input WorkPeriodUpdateManyWithoutTimesheetInput {
+  create: [WorkPeriodCreateWithoutTimesheetInput!]
+  connect: [WorkPeriodWhereUniqueInput!]
+  disconnect: [WorkPeriodWhereUniqueInput!]
+  delete: [WorkPeriodWhereUniqueInput!]
+  update: [WorkPeriodUpdateWithWhereUniqueWithoutTimesheetInput!]
+  updateMany: [WorkPeriodUpdateManyWithWhereNestedInput!]
+  deleteMany: [WorkPeriodScalarWhereInput!]
+  upsert: [WorkPeriodUpsertWithWhereUniqueWithoutTimesheetInput!]
 }
 
 input WorkPeriodUpdateManyWithWhereNestedInput {
@@ -1908,15 +2341,21 @@ input WorkPeriodUpdateManyWithWhereNestedInput {
   data: WorkPeriodUpdateManyDataInput!
 }
 
-input WorkPeriodUpdateWithWhereUniqueNestedInput {
-  where: WorkPeriodWhereUniqueInput!
-  data: WorkPeriodUpdateDataInput!
+input WorkPeriodUpdateWithoutTimesheetDataInput {
+  from: DateTime
+  to: DateTime
+  confirmedBy: AccountUpdateOneInput
 }
 
-input WorkPeriodUpsertWithWhereUniqueNestedInput {
+input WorkPeriodUpdateWithWhereUniqueWithoutTimesheetInput {
   where: WorkPeriodWhereUniqueInput!
-  update: WorkPeriodUpdateDataInput!
-  create: WorkPeriodCreateInput!
+  data: WorkPeriodUpdateWithoutTimesheetDataInput!
+}
+
+input WorkPeriodUpsertWithWhereUniqueWithoutTimesheetInput {
+  where: WorkPeriodWhereUniqueInput!
+  update: WorkPeriodUpdateWithoutTimesheetDataInput!
+  create: WorkPeriodCreateWithoutTimesheetInput!
 }
 
 input WorkPeriodWhereInput {
@@ -2012,7 +2451,7 @@ input WorkPeriodWhereInput {
 
   """All values greater than or equal the given value."""
   to_gte: DateTime
-  user: AccountWhereInput
+  timesheet: TimesheetWhereInput
   confirmedBy: AccountWhereInput
 }
 

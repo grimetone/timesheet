@@ -1,12 +1,18 @@
+enum Permission {
+  USER,
+  SUPERUSER,
+  ADMIN
+}
+
 type Account {
   id: ID! @unique
-  roleType: String!
   name: String!
   employeeNo: String @unique
   email: String! @unique
   password: String!
   hrChargeKr: Int
   projects: [Project!]
+  permissions: [Permission]
 }
 
 type Jwt {
@@ -21,14 +27,14 @@ type Timesheet {
   confirmedBy: Account @relation(name: "ConfirmedBy")
   from: DateTime!
   to: DateTime!
-  workPeriods: [WorkPeriod]
+  workPeriods: [WorkPeriod] @relation(name: "WorkperiodByTimesheet")
 }
 
 type WorkPeriod {
   id: ID! @unique
   from: DateTime!
-  to: DateTime!
-  user: Account! @relation(name: "WorkPeriodByUser")
+  to: DateTime
+  timesheet: Timesheet! @relation(name: "WorkperiodByTimesheet")
   confirmedBy: Account @relation(name: "WorkPeriodConfirmedBy")
 }
 
