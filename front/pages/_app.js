@@ -1,7 +1,9 @@
 import App, { Container } from 'next/app';
 import { Grommet } from 'grommet';
 import { Provider } from "react-redux";
+import { ApolloProvider } from 'react-apollo';
 import withRedux from "next-redux-wrapper";
+import withData from '../shared/lib/withData';
 import { configStore } from "../state";
 
 const theme = {
@@ -23,16 +25,17 @@ class MyApp extends App {
     return { pageProps };
   }
   render() {
-    const { Component, pageProps , store} = this.props;
-
+    const { Component, pageProps, store, apollo } = this.props;
     return <Container>
       <Provider store={store}>
-        <Grommet theme={theme}>
-          <Component {...pageProps} />
-        </Grommet>
+        <ApolloProvider client={apollo}>
+            <Grommet theme={theme}>
+              <Component {...pageProps} />
+            </Grommet>
+          </ApolloProvider>
         </Provider>
-     </Container>;
+      </Container>;
   }
 }
 
-export default withRedux(configStore)(MyApp);
+export default withData(withRedux(configStore)(MyApp));

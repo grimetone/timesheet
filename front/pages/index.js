@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Clock, Text } from "grommet";
-import { FormList, Menu } from "./shared/components";
+import { FormList, Menu } from "../shared/components";
 
 const columns = [
   {
