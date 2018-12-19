@@ -127,14 +127,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_app__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var grommet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! grommet */ "grommet");
 /* harmony import */ var grommet__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(grommet__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-apollo */ "react-apollo");
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var next_redux_wrapper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! next-redux-wrapper */ "next-redux-wrapper");
-/* harmony import */ var next_redux_wrapper__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_redux_wrapper__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _shared_lib_withData__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../shared/lib/withData */ "./shared/lib/withData.js");
-/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../state */ "./state/index.js");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _shared_lib_withData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/lib/withData */ "./shared/lib/withData.js");
 
 var _jsxFileName = "C:\\Users\\seana\\Desktop\\School\\timesheet\\front\\pages\\_app.js";
 
@@ -162,9 +157,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
 
 
 
@@ -200,42 +192,34 @@ function (_App) {
       var _this$props = this.props,
           Component = _this$props.Component,
           pageProps = _this$props.pageProps,
-          store = _this$props.store,
           apollo = _this$props.apollo;
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_app__WEBPACK_IMPORTED_MODULE_2__["Container"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 29
+          lineNumber: 26
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
-        store: store,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 30
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_5__["ApolloProvider"], {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_4__["ApolloProvider"], {
         client: apollo,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 31
+          lineNumber: 27
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(grommet__WEBPACK_IMPORTED_MODULE_3__["Grommet"], {
         theme: theme,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 32
+          lineNumber: 28
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Component, _extends({}, pageProps, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 33
+          lineNumber: 29
         },
         __self: this
-      }))))));
+      })))));
     }
   }], [{
     key: "getInitialProps",
@@ -289,7 +273,7 @@ function (_App) {
   return MyApp;
 }(next_app__WEBPACK_IMPORTED_MODULE_2___default.a);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(_shared_lib_withData__WEBPACK_IMPORTED_MODULE_7__["default"])(next_redux_wrapper__WEBPACK_IMPORTED_MODULE_6___default()(_state__WEBPACK_IMPORTED_MODULE_8__["configStore"])(MyApp)));
+/* harmony default export */ __webpack_exports__["default"] = (Object(_shared_lib_withData__WEBPACK_IMPORTED_MODULE_5__["default"])(MyApp));
 
 /***/ }),
 
@@ -327,420 +311,6 @@ function createClient(_ref) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (next_with_apollo__WEBPACK_IMPORTED_MODULE_0___default()(createClient));
-
-/***/ }),
-
-/***/ "./state/ducks/authentication/actions.js":
-/*!***********************************************!*\
-  !*** ./state/ducks/authentication/actions.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./state/ducks/authentication/index.js":
-/*!*********************************************!*\
-  !*** ./state/ducks/authentication/index.js ***!
-  \*********************************************/
-/*! exports provided: selectors, services, actions, sagas, types, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reducers */ "./state/ducks/authentication/reducers.js");
-/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./selectors */ "./state/ducks/authentication/selectors.js");
-/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_selectors__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "selectors", function() { return _selectors__WEBPACK_IMPORTED_MODULE_1__; });
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services */ "./state/ducks/authentication/services.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_services__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "services", function() { return _services__WEBPACK_IMPORTED_MODULE_2__; });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./state/ducks/authentication/actions.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_actions__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return _actions__WEBPACK_IMPORTED_MODULE_3__; });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./types */ "./state/ducks/authentication/types.js");
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "types", function() { return _types__WEBPACK_IMPORTED_MODULE_4__; });
-/* harmony import */ var _sagas__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./sagas */ "./state/ducks/authentication/sagas.js");
-/* harmony import */ var _sagas__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_sagas__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "sagas", function() { return _sagas__WEBPACK_IMPORTED_MODULE_5__; });
-
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = (_reducers__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
-
-/***/ "./state/ducks/authentication/reducers.js":
-/*!************************************************!*\
-  !*** ./state/ducks/authentication/reducers.js ***!
-  \************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var immer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! immer */ "immer");
-/* harmony import */ var immer__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(immer__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./state/ducks/authentication/types.js");
-
-
-var initialState = {
-  user: "",
-  loading: false,
-  error: ""
-};
-
-var reducer = function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-  return immer__WEBPACK_IMPORTED_MODULE_0___default()(state, function (draft) {
-    switch (action.type) {
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_LOGIN_REQUEST:
-        draft.loading = true;
-        draft.error = "";
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_LOGIN_SUCCESS:
-        draft.loading = false;
-        draft.error = "";
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_LOGIN_FAILURE:
-        draft.loading = false, draft.error = action.payload.error;
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_LOGOUT:
-        draft.loading = false;
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_CREATE_REQUEST:
-        draft.loading = true;
-        draft.error = ';';
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_CREATE_SUCCESS:
-        draft.loading = false;
-        draft.error = '';
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_CREATE_FAILURE:
-        draft.loading = false;
-        draft.error = action.payload.error;
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_DELETE_REQUEST:
-        draft.loading = true;
-        draft.error = ';';
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_DELETE_SUCCESS:
-        draft.loading = false;
-        draft.error = '';
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_DELETE_FAILURE:
-        draft.loading = false;
-        draft.error = action.payload.error;
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_EDIT_REQUEST:
-        draft.loading = true;
-        draft.error = "";
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_EDIT_SUCCESS:
-        draft.loading = false;
-        draft.error = '';
-        return draft;
-
-      case _types__WEBPACK_IMPORTED_MODULE_1__["actionType"].USER_EDIT_FAILURE:
-        draft.loading = false;
-        draft.error = action.payload.error;
-        return draft;
-
-      default:
-        return state;
-    }
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (reducer);
-
-/***/ }),
-
-/***/ "./state/ducks/authentication/sagas.js":
-/*!*********************************************!*\
-  !*** ./state/ducks/authentication/sagas.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./state/ducks/authentication/selectors.js":
-/*!*************************************************!*\
-  !*** ./state/ducks/authentication/selectors.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./state/ducks/authentication/services.js":
-/*!************************************************!*\
-  !*** ./state/ducks/authentication/services.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./state/ducks/authentication/types.js":
-/*!*********************************************!*\
-  !*** ./state/ducks/authentication/types.js ***!
-  \*********************************************/
-/*! exports provided: actionType */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actionType", function() { return actionTypes; });
-/**
- * Action constant types
- */
-var actionTypes = {
-  // Creation request for muster
-  USER_LOGIN: "USER_LOGIN",
-  USER_LOGOUT: "USER_LOGOUT",
-  USER_CREATE: "USER_CREATE",
-  USER_DELETE: "USER_DELETE",
-  USER_EDIT: "USER_EDIT"
-};
-
-
-/***/ }),
-
-/***/ "./state/index.js":
-/*!************************!*\
-  !*** ./state/index.js ***!
-  \************************/
-/*! exports provided: configStore, rootReducer, rootSaga */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _rootReducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rootReducers */ "./state/rootReducers.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "rootReducer", function() { return _rootReducers__WEBPACK_IMPORTED_MODULE_0__["default"]; });
-
-/* harmony import */ var _rootSagas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rootSagas */ "./state/rootSagas.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "rootSaga", function() { return _rootSagas__WEBPACK_IMPORTED_MODULE_1__["default"]; });
-
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./state/store.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "configStore", function() { return _store__WEBPACK_IMPORTED_MODULE_2__["default"]; });
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./state/rootReducers.js":
-/*!*******************************!*\
-  !*** ./state/rootReducers.js ***!
-  \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "redux");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ducks_authentication__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ducks/authentication */ "./state/ducks/authentication/index.js");
-
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  authenticationSaga: _ducks_authentication__WEBPACK_IMPORTED_MODULE_1__["default"]
-}));
-
-/***/ }),
-
-/***/ "./state/rootSagas.js":
-/*!****************************!*\
-  !*** ./state/rootSagas.js ***!
-  \****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return rootSaga; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-saga/effects */ "redux-saga/effects");
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__);
-
-
-var _marked =
-/*#__PURE__*/
-_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(rootSaga);
-
-
-/**
- * Calls into action all the saga watcher
- */
-
-function rootSaga() {
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function rootSaga$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([]);
-
-        case 2:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _marked, this);
-}
-
-/***/ }),
-
-/***/ "./state/store.js":
-/*!************************!*\
-  !*** ./state/store.js ***!
-  \************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "redux");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var redux_saga__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-saga */ "redux-saga");
-/* harmony import */ var redux_saga__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(redux_saga__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _rootReducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./rootReducers */ "./state/rootReducers.js");
-/* harmony import */ var _rootSagas__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./rootSagas */ "./state/rootSagas.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-
-
-
-var sagaMiddleware = redux_saga__WEBPACK_IMPORTED_MODULE_2___default()();
-
-var makeStore = function makeStore(initialState) {
-  // Make exception for redux dev tools
-
-  /* eslint-disable no-underscore-dangle */
-
-  /* eslint-disable no-undef */
-  var composeEnhancers = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEBPACK_IMPORTED_MODULE_1__["compose"];
-  /* eslint-enable */
-
-  var store = Object(redux__WEBPACK_IMPORTED_MODULE_1__["createStore"])(_rootReducers__WEBPACK_IMPORTED_MODULE_3__["default"], initialState, composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_1__["applyMiddleware"])(sagaMiddleware)));
-
-  store.runSaga = function () {
-    // Avoid running twice
-    if (store.saga) return;
-    store.saga = sagaMiddleware.run(_rootSagas__WEBPACK_IMPORTED_MODULE_4__["default"]);
-  };
-
-  store.stopSaga =
-  /*#__PURE__*/
-  _asyncToGenerator(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (store.saga) {
-              _context.next = 2;
-              break;
-            }
-
-            return _context.abrupt("return");
-
-          case 2:
-            store.dispatch(redux_saga__WEBPACK_IMPORTED_MODULE_2__["END"]);
-            _context.next = 5;
-            return store.saga.done;
-
-          case 5:
-            store.saga = null;
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, this);
-  }));
-
-  store.execSagaTasks =
-  /*#__PURE__*/
-  function () {
-    var _ref2 = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(isServer, tasks) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              // run saga
-              store.runSaga(); // dispatch saga tasks
-
-              tasks(store.dispatch); // Stop running and wait for the tasks to be done
-
-              _context2.next = 4;
-              return store.stopSaga();
-
-            case 4:
-              // Re-run on client side
-              if (!isServer) {
-                store.runSaga();
-              }
-
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, this);
-    }));
-
-    return function (_x, _x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }(); // Initial run
-
-
-  store.runSaga();
-  return store;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (makeStore);
 
 /***/ }),
 
@@ -789,28 +359,6 @@ module.exports = require("grommet");
 
 /***/ }),
 
-/***/ "immer":
-/*!************************!*\
-  !*** external "immer" ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("immer");
-
-/***/ }),
-
-/***/ "next-redux-wrapper":
-/*!*************************************!*\
-  !*** external "next-redux-wrapper" ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("next-redux-wrapper");
-
-/***/ }),
-
 /***/ "next-with-apollo":
 /*!***********************************!*\
   !*** external "next-with-apollo" ***!
@@ -852,50 +400,6 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-apollo");
-
-/***/ }),
-
-/***/ "react-redux":
-/*!******************************!*\
-  !*** external "react-redux" ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-
-/***/ "redux":
-/*!************************!*\
-  !*** external "redux" ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("redux");
-
-/***/ }),
-
-/***/ "redux-saga":
-/*!*****************************!*\
-  !*** external "redux-saga" ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-saga");
-
-/***/ }),
-
-/***/ "redux-saga/effects":
-/*!*************************************!*\
-  !*** external "redux-saga/effects" ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-saga/effects");
 
 /***/ })
 
