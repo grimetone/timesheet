@@ -1,5 +1,8 @@
 import App, { Container } from 'next/app';
 import { Grommet } from 'grommet';
+import { Provider } from "react-redux";
+import withRedux from "next-redux-wrapper";
+import { configStore } from "../state";
 
 const theme = {
   global: {
@@ -15,15 +18,21 @@ const theme = {
  * Applications 'alternative wrapper component
  */
 class MyApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+    return { pageProps };
+  }
   render() {
-    const { Component } = this.props;
+    const { Component, pageProps , store} = this.props;
 
     return <Container>
+      <Provider store={store}>
         <Grommet theme={theme}>
-          <Component />
+          <Component {...pageProps} />
         </Grommet>
-      </Container>;
+        </Provider>
+     </Container>;
   }
 }
 
-export default MyApp;
+export default withRedux(configStore)(MyApp);

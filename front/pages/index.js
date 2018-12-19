@@ -1,7 +1,6 @@
 import React from 'react';
-import { Grommet, Box, Button } from "grommet";
-import Menu from "../components/nav/navbar";
-import { DataTable, Meter, Text, Clock } from "grommet";
+import { Box, Button, Clock, Text } from "grommet";
+import { FormList, Menu } from "./shared/components";
 
 const columns = [
   {
@@ -19,7 +18,8 @@ const columns = [
     footer: "Unassigned Hrs:"
   }
 ];
-const DATA = [
+
+const DATA  = [
   {
     start: "2018-06-10",
     end: "2018-06-10",
@@ -56,25 +56,26 @@ const DATA = [
     project: "Project 22"
   }
 ];
+const menuItems = [
+  { label: "My Projectsz", onClick: () => { } },
+  { label: "Abort", onClick: () => { } },
+];
+
+const title = 'Current Timesheet: 12 / 06 / 19 - 12 / 07 / 19';
 
 class Home extends React.Component {
   render(){
     return <div>
-        <Menu />
+      <Menu items={menuItems} />
         <Box align="center">
           <Button label="CHECKIN" primary onClick={() => alert("hello, world")} />
-          <b />
           <Button label="CHECKOUT" primary onClick={() => alert("hello, world")} />
           <Box align="center" justify="start" pad="large">
             <Clock type="digital" />
             Checked In: 3Hrs 33Mins
           </Box>
         </Box>
-        <Box align="center" pad="large">
-        <b>Summary Page</b>
-          Current Timesheet: 12/06/19 - 12/07/19
-          <DataTable columns={columns} data={DATA} />
-        </Box>
+          <FormList columns={columns} data={DATA} title={title} />
       </div>;
   }
 }
