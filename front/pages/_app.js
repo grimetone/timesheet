@@ -18,18 +18,24 @@ const theme = {
  */
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+    let pageProps = {};
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+    pageProps.query = ctx.query;
     return { pageProps };
   }
   render() {
     const { Component, pageProps, apollo } = this.props;
-    return <Container>
-          <ApolloProvider client={apollo} >
-            <Grommet theme={theme}>
-              <Component {...pageProps} />
-            </Grommet>
-          </ApolloProvider>
-      </Container>;
+    return (
+      <Container>
+        <ApolloProvider client={apollo}>
+          <Grommet theme={theme}>
+            <Component {...pageProps} />
+          </Grommet>
+        </ApolloProvider>
+      </Container>
+    );
   }
 }
 

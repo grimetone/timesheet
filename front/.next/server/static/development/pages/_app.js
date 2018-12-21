@@ -196,27 +196,27 @@ function (_App) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_app__WEBPACK_IMPORTED_MODULE_2__["Container"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 26
+          lineNumber: 31
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_4__["ApolloProvider"], {
         client: apollo,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27
+          lineNumber: 32
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(grommet__WEBPACK_IMPORTED_MODULE_3__["Grommet"], {
         theme: theme,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28
+          lineNumber: 33
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Component, _extends({}, pageProps, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 29
+          lineNumber: 34
         },
         __self: this
       })))));
@@ -233,30 +233,26 @@ function (_App) {
             switch (_context.prev = _context.next) {
               case 0:
                 Component = _ref.Component, ctx = _ref.ctx;
+                pageProps = {};
 
                 if (!Component.getInitialProps) {
-                  _context.next = 7;
+                  _context.next = 6;
                   break;
                 }
 
-                _context.next = 4;
+                _context.next = 5;
                 return Component.getInitialProps(ctx);
 
-              case 4:
-                _context.t0 = _context.sent;
-                _context.next = 8;
-                break;
+              case 5:
+                pageProps = _context.sent;
 
-              case 7:
-                _context.t0 = {};
-
-              case 8:
-                pageProps = _context.t0;
+              case 6:
+                pageProps.query = ctx.query;
                 return _context.abrupt("return", {
                   pageProps: pageProps
                 });
 
-              case 10:
+              case 8:
               case "end":
                 return _context.stop();
             }
