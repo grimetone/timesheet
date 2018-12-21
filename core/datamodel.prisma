@@ -42,8 +42,9 @@ type Project {
   id: ID! @unique
   name: String!
   active: Boolean! @default(value: "true")
-  users: [Account!]
-  expenses: [Expense!]
+  users: [Account]
+  expenses: [Expense]
+  created: DateTime
 }
 
 type Expense {

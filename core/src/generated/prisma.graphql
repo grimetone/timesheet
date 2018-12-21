@@ -1,15 +1,15 @@
 # source: https://eu1.prisma.sh/sean-aede1d/timesheet/dev
-# timestamp: Sun Dec 09 2018 12:18:22 GMT+0100 (Romance Standard Time)
+# timestamp: Wed Dec 19 2018 23:25:08 GMT+0100 (Romance Standard Time)
 
 type Account implements Node {
   id: ID!
-  roleType: String!
   name: String!
   employeeNo: String
   email: String!
   password: String!
   hrChargeKr: Int
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+  permissions: [Permission!]!
 }
 
 """A connection to a list of items."""
@@ -23,12 +23,12 @@ type AccountConnection {
 }
 
 input AccountCreateInput {
-  roleType: String!
   name: String!
   employeeNo: String
   email: String!
   password: String!
   hrChargeKr: Int
+  permissions: AccountCreatepermissionsInput
   projects: ProjectCreateManyWithoutUsersInput
 }
 
@@ -42,13 +42,17 @@ input AccountCreateOneInput {
   connect: AccountWhereUniqueInput
 }
 
+input AccountCreatepermissionsInput {
+  set: [Permission!]
+}
+
 input AccountCreateWithoutProjectsInput {
-  roleType: String!
   name: String!
   employeeNo: String
   email: String!
   password: String!
   hrChargeKr: Int
+  permissions: AccountCreatepermissionsInput
 }
 
 """An edge in a connection."""
@@ -63,8 +67,6 @@ type AccountEdge {
 enum AccountOrderByInput {
   id_ASC
   id_DESC
-  roleType_ASC
-  roleType_DESC
   name_ASC
   name_DESC
   employeeNo_ASC
@@ -83,12 +85,12 @@ enum AccountOrderByInput {
 
 type AccountPreviousValues {
   id: ID!
-  roleType: String!
   name: String!
   employeeNo: String
   email: String!
   password: String!
   hrChargeKr: Int
+  permissions: [Permission!]!
 }
 
 input AccountScalarWhereInput {
@@ -140,46 +142,6 @@ input AccountScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  roleType: String
-
-  """All values that are not equal to given value."""
-  roleType_not: String
-
-  """All values that are contained in given list."""
-  roleType_in: [String!]
-
-  """All values that are not contained in given list."""
-  roleType_not_in: [String!]
-
-  """All values less than the given value."""
-  roleType_lt: String
-
-  """All values less than or equal the given value."""
-  roleType_lte: String
-
-  """All values greater than the given value."""
-  roleType_gt: String
-
-  """All values greater than or equal the given value."""
-  roleType_gte: String
-
-  """All values containing the given string."""
-  roleType_contains: String
-
-  """All values not containing the given string."""
-  roleType_not_contains: String
-
-  """All values starting with the given string."""
-  roleType_starts_with: String
-
-  """All values not starting with the given string."""
-  roleType_not_starts_with: String
-
-  """All values ending with the given string."""
-  roleType_ends_with: String
-
-  """All values not ending with the given string."""
-  roleType_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -404,41 +366,41 @@ input AccountSubscriptionWhereInput {
 }
 
 input AccountUpdateDataInput {
-  roleType: String
   name: String
   employeeNo: String
   email: String
   password: String
   hrChargeKr: Int
+  permissions: AccountUpdatepermissionsInput
   projects: ProjectUpdateManyWithoutUsersInput
 }
 
 input AccountUpdateInput {
-  roleType: String
   name: String
   employeeNo: String
   email: String
   password: String
   hrChargeKr: Int
+  permissions: AccountUpdatepermissionsInput
   projects: ProjectUpdateManyWithoutUsersInput
 }
 
 input AccountUpdateManyDataInput {
-  roleType: String
   name: String
   employeeNo: String
   email: String
   password: String
   hrChargeKr: Int
+  permissions: AccountUpdatepermissionsInput
 }
 
 input AccountUpdateManyMutationInput {
-  roleType: String
   name: String
   employeeNo: String
   email: String
   password: String
   hrChargeKr: Int
+  permissions: AccountUpdatepermissionsInput
 }
 
 input AccountUpdateManyWithoutProjectsInput {
@@ -473,13 +435,17 @@ input AccountUpdateOneRequiredInput {
   upsert: AccountUpsertNestedInput
 }
 
+input AccountUpdatepermissionsInput {
+  set: [Permission!]
+}
+
 input AccountUpdateWithoutProjectsDataInput {
-  roleType: String
   name: String
   employeeNo: String
   email: String
   password: String
   hrChargeKr: Int
+  permissions: AccountUpdatepermissionsInput
 }
 
 input AccountUpdateWithWhereUniqueWithoutProjectsInput {
@@ -547,46 +513,6 @@ input AccountWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  roleType: String
-
-  """All values that are not equal to given value."""
-  roleType_not: String
-
-  """All values that are contained in given list."""
-  roleType_in: [String!]
-
-  """All values that are not contained in given list."""
-  roleType_not_in: [String!]
-
-  """All values less than the given value."""
-  roleType_lt: String
-
-  """All values less than or equal the given value."""
-  roleType_lte: String
-
-  """All values greater than the given value."""
-  roleType_gt: String
-
-  """All values greater than or equal the given value."""
-  roleType_gte: String
-
-  """All values containing the given string."""
-  roleType_contains: String
-
-  """All values not containing the given string."""
-  roleType_not_contains: String
-
-  """All values starting with the given string."""
-  roleType_starts_with: String
-
-  """All values not starting with the given string."""
-  roleType_not_starts_with: String
-
-  """All values ending with the given string."""
-  roleType_ends_with: String
-
-  """All values not ending with the given string."""
-  roleType_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -1480,12 +1406,19 @@ type PageInfo {
   endCursor: String
 }
 
+enum Permission {
+  USER
+  SUPERUSER
+  ADMIN
+}
+
 type Project implements Node {
   id: ID!
   name: String!
   active: Boolean!
   users(where: AccountWhereInput, orderBy: AccountOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Account!]
   expenses(where: ExpenseWhereInput, orderBy: ExpenseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Expense!]
+  created: DateTime
 }
 
 """A connection to a list of items."""
@@ -1501,6 +1434,7 @@ type ProjectConnection {
 input ProjectCreateInput {
   name: String!
   active: Boolean
+  created: DateTime
   users: AccountCreateManyWithoutProjectsInput
   expenses: ExpenseCreateManyInput
 }
@@ -1513,6 +1447,7 @@ input ProjectCreateManyWithoutUsersInput {
 input ProjectCreateWithoutUsersInput {
   name: String!
   active: Boolean
+  created: DateTime
   expenses: ExpenseCreateManyInput
 }
 
@@ -1532,6 +1467,8 @@ enum ProjectOrderByInput {
   name_DESC
   active_ASC
   active_DESC
+  created_ASC
+  created_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1542,6 +1479,7 @@ type ProjectPreviousValues {
   id: ID!
   name: String!
   active: Boolean!
+  created: DateTime
 }
 
 input ProjectScalarWhereInput {
@@ -1637,6 +1575,28 @@ input ProjectScalarWhereInput {
 
   """All values that are not equal to given value."""
   active_not: Boolean
+  created: DateTime
+
+  """All values that are not equal to given value."""
+  created_not: DateTime
+
+  """All values that are contained in given list."""
+  created_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  created_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  created_lt: DateTime
+
+  """All values less than or equal the given value."""
+  created_lte: DateTime
+
+  """All values greater than the given value."""
+  created_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  created_gte: DateTime
 }
 
 type ProjectSubscriptionPayload {
@@ -1681,6 +1641,7 @@ input ProjectSubscriptionWhereInput {
 input ProjectUpdateInput {
   name: String
   active: Boolean
+  created: DateTime
   users: AccountUpdateManyWithoutProjectsInput
   expenses: ExpenseUpdateManyInput
 }
@@ -1688,11 +1649,13 @@ input ProjectUpdateInput {
 input ProjectUpdateManyDataInput {
   name: String
   active: Boolean
+  created: DateTime
 }
 
 input ProjectUpdateManyMutationInput {
   name: String
   active: Boolean
+  created: DateTime
 }
 
 input ProjectUpdateManyWithoutUsersInput {
@@ -1714,6 +1677,7 @@ input ProjectUpdateManyWithWhereNestedInput {
 input ProjectUpdateWithoutUsersDataInput {
   name: String
   active: Boolean
+  created: DateTime
   expenses: ExpenseUpdateManyInput
 }
 
@@ -1821,6 +1785,28 @@ input ProjectWhereInput {
 
   """All values that are not equal to given value."""
   active_not: Boolean
+  created: DateTime
+
+  """All values that are not equal to given value."""
+  created_not: DateTime
+
+  """All values that are contained in given list."""
+  created_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  created_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  created_lt: DateTime
+
+  """All values less than or equal the given value."""
+  created_lte: DateTime
+
+  """All values greater than the given value."""
+  created_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  created_gte: DateTime
   users_every: AccountWhereInput
   users_some: AccountWhereInput
   users_none: AccountWhereInput

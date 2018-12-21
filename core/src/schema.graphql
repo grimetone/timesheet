@@ -4,15 +4,15 @@ type SuccessMessage {
 }
 
 type Mutation {
-  login(username: String, password: String!): Account!
+  login(email: String!, password: String!): Account!
   signout: SuccessMessage
-  createUser(email: String!, password: String!, name:String!, roleType:String!, hrChargeKr: Int): Account!
-  createTimesheet(to:DateTime!, from: DateTime!): Timesheet!
+  createUser(email: String!, password: String!, name:String!, hrChargeKr: Int): Account!
+  createTimesheet(userId: ID!, to:DateTime!, from: DateTime!): Timesheet!
   confirmTimesheet(id: ID!): Timesheet!
   createWorkPeriod(startTime: DateTime, endTime: DateTime, timesheetId: ID!): WorkPeriod!
   deleteWorkPeriod(id:ID!): WorkPeriod
   confirmWorkPeriod(id: ID!): WorkPeriod!
-  createProject(name: String!): Project!
+  createProject(name: String!, active: Boolean!): Project!
   deleteProject(id: ID!): Project
   addUserToProject(userId: ID!, projectId: ID!): Project!
   removeUserFromProject(userId: ID!, projectId: ID!): Project!

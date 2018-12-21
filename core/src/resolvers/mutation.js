@@ -1,9 +1,10 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const Mutation = {
   // Logs user in
   async login(parent, args,ctx, info) {
-    const user = await ctx.db.query.account({ where: { email } });
+    const user = await ctx.db.query.account({ where: { email: args.email } });
     if (!user) {
       throw new Error('Invalid email');
     }
@@ -12,6 +13,11 @@ const Mutation = {
     if (!validPass) {
       throw new Error('Invalid Password!');
     }
+    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+    ctx.response.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365
+    });
     // No thrown errors returns user
     return user;
   },
@@ -33,7 +39,7 @@ const Mutation = {
   },
   // Creates a project
   async createProject(parent, args, ctx, info) {
-    const project = await ctx.db.mutation.createAccount({ data: { ...args } }, info);
+    const project = await ctx.db.mutation.createProject({ data: { ...args } }, info);
     return project;
   },
   // Deletes specified project

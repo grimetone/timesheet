@@ -12,12 +12,18 @@ const Query = {
   async user(parent, args, ctx, info){
     return ctx.db.query.account({ where: { id: args.id }}, info);
   },
+  // Returns a single project
+  async project(parent, args, ctx, info) {
+    return ctx.db.query.project({ where: { id: args.id } }, info);
+  },
   // Returns a timesheet
   timesheet: forwardTo("db"),
   // Returns a workperiod
   workPeriod: forwardTo("db"),
   // Returns a project
-  project: forwardTo("db"),
+  async project(parent, args, ctx, info) {
+    return ctx.db.query.project({ where: { id: args.id } }, info);
+  },
   // Returns all users(accounts)
   async users(parent, args, ctx, info) {
     return ctx.db.query.accounts({}, info);
