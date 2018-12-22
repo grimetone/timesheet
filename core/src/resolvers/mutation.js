@@ -1,5 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { permissionCheck } = require('../permissionUtils');
+const newInfo = "{ id permissions }";
 
 const Mutation = {
   // Logs user in
@@ -25,25 +27,22 @@ const Mutation = {
   async createUser(parent, args, ctx, info) {
     const email = args.email.toLowerCase();
     const password = await bcrypt.hash(args.password, 10);
-    const user = await ctx.db.mutation.createAccount(
-      {
-        data: {
-          ...args,
-          email: email,
-          password: password,
-        }
-      },
-      info
-    );
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ['ADMIN']);
+    const user = await ctx.db.mutation.createAccount({ data: { ...args, email: email, password: password, permissions: { set: ["USER"] }, }, }, info);
     return user;
   },
   // Creates a project
   async createProject(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     const project = await ctx.db.mutation.createProject({ data: { ...args } }, info);
     return project;
   },
   // Deletes specified project
   async deleteProject(parent, args, ctx, info){
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     // Confirms that project exists
     const project = await ctx.db.query.project({
       where: {
@@ -56,6 +55,8 @@ const Mutation = {
   },
   // Adds a user to a project
   async addUserToProject(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     const project = await ctx.db.query.project({
       where: {
         id: args.projectId
@@ -75,6 +76,8 @@ const Mutation = {
 },
 // Removes a specified user from projects user array
   async removeUserFromProject(parent, args, ctx,info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     // Returns the project
     const project = await ctx.db.query.project({
       where: {
@@ -94,6 +97,8 @@ const Mutation = {
   },
   // Creates a timesheet
   async createTimesheet(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["USER", "SUPERUSER", "ADMIN"]);
     const timesheet = await ctx.db.mutation.createTimesheet(
       {
         data: {
@@ -108,6 +113,8 @@ const Mutation = {
   },
   // Creates a workperiod
   async createWorkPeriod(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["USER", "SUPERUSER", "ADMIN"]);
     const workPeriod = await ctx.db.mutation.createWorkPeriod(
       {
         data: {
@@ -126,6 +133,8 @@ const Mutation = {
   },
   // Deletes a workperiod
   async deleteWorkPeriod(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["USER", "SUPERUSER", "ADMIN"]);
     // Checks whether workperiod exists
     const workperiod = await ctx.db.query.workPeriod({
       where: {
@@ -139,6 +148,8 @@ const Mutation = {
   },
   // Creates an expense
   async createExpense(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["USER", "SUPERUSER", "ADMIN"]);
     const { userId } = ctx.request;
     const expense = await ctx.db.mutation.createExpense(
       {
@@ -154,6 +165,8 @@ const Mutation = {
   },
   // Deletes an expense
   async deleteExpense(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     // Checks whether workperiod exists
     const expense = await ctx.db.query.expense({
       where: {
@@ -167,6 +180,8 @@ const Mutation = {
   },
   // Confirms an expense
   async confirmExpense(parent, args,ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     const { userId } = ctx.request;
     const expense = await ctx.db.mutation.updateExpense(
       {
@@ -181,6 +196,8 @@ const Mutation = {
   },
   // confirms a timesheet
   async confirmTimesheet(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     const timesheet = await ctx.db.mutation.updateTimesheet(
       {
         data: {

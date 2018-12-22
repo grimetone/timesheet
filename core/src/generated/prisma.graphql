@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/sean-aede1d/timesheet/dev
-# timestamp: Wed Dec 19 2018 23:25:08 GMT+0100 (Romance Standard Time)
+# timestamp: Sat Dec 22 2018 04:07:04 GMT+0100 (Romance Standard Time)
 
 type Account implements Node {
   id: ID!
@@ -714,10 +714,6 @@ type AggregateExpense {
   count: Int!
 }
 
-type AggregateJwt {
-  count: Int!
-}
-
 type AggregateProject {
   count: Int!
 }
@@ -1170,173 +1166,6 @@ input ExpenseWhereUniqueInput {
   id: ID
 }
 
-type Jwt {
-  JWT: String!
-  expires: DateTime!
-  user: Account!
-}
-
-"""A connection to a list of items."""
-type JwtConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [JwtEdge]!
-  aggregate: AggregateJwt!
-}
-
-input JwtCreateInput {
-  JWT: String!
-  expires: DateTime!
-  user: AccountCreateOneInput!
-}
-
-"""An edge in a connection."""
-type JwtEdge {
-  """The item at the end of the edge."""
-  node: Jwt!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum JwtOrderByInput {
-  JWT_ASC
-  JWT_DESC
-  expires_ASC
-  expires_DESC
-  id_ASC
-  id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type JwtPreviousValues {
-  JWT: String!
-  expires: DateTime!
-}
-
-type JwtSubscriptionPayload {
-  mutation: MutationType!
-  node: Jwt
-  updatedFields: [String!]
-  previousValues: JwtPreviousValues
-}
-
-input JwtSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [JwtSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [JwtSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [JwtSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: JwtWhereInput
-}
-
-input JwtUpdateManyMutationInput {
-  JWT: String
-  expires: DateTime
-}
-
-input JwtWhereInput {
-  """Logical AND on all given filters."""
-  AND: [JwtWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [JwtWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [JwtWhereInput!]
-  JWT: String
-
-  """All values that are not equal to given value."""
-  JWT_not: String
-
-  """All values that are contained in given list."""
-  JWT_in: [String!]
-
-  """All values that are not contained in given list."""
-  JWT_not_in: [String!]
-
-  """All values less than the given value."""
-  JWT_lt: String
-
-  """All values less than or equal the given value."""
-  JWT_lte: String
-
-  """All values greater than the given value."""
-  JWT_gt: String
-
-  """All values greater than or equal the given value."""
-  JWT_gte: String
-
-  """All values containing the given string."""
-  JWT_contains: String
-
-  """All values not containing the given string."""
-  JWT_not_contains: String
-
-  """All values starting with the given string."""
-  JWT_starts_with: String
-
-  """All values not starting with the given string."""
-  JWT_not_starts_with: String
-
-  """All values ending with the given string."""
-  JWT_ends_with: String
-
-  """All values not ending with the given string."""
-  JWT_not_ends_with: String
-  expires: DateTime
-
-  """All values that are not equal to given value."""
-  expires_not: DateTime
-
-  """All values that are contained in given list."""
-  expires_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  expires_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  expires_lt: DateTime
-
-  """All values less than or equal the given value."""
-  expires_lte: DateTime
-
-  """All values greater than the given value."""
-  expires_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  expires_gte: DateTime
-  user: AccountWhereInput
-}
-
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -1344,7 +1173,6 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createJwt(data: JwtCreateInput!): Jwt!
   createTimesheet(data: TimesheetCreateInput!): Timesheet!
   createWorkPeriod(data: WorkPeriodCreateInput!): WorkPeriod!
   createProject(data: ProjectCreateInput!): Project!
@@ -1365,13 +1193,11 @@ type Mutation {
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
   upsertExpense(where: ExpenseWhereUniqueInput!, create: ExpenseCreateInput!, update: ExpenseUpdateInput!): Expense!
   upsertAccount(where: AccountWhereUniqueInput!, create: AccountCreateInput!, update: AccountUpdateInput!): Account!
-  updateManyJwts(data: JwtUpdateManyMutationInput!, where: JwtWhereInput): BatchPayload!
   updateManyTimesheets(data: TimesheetUpdateManyMutationInput!, where: TimesheetWhereInput): BatchPayload!
   updateManyWorkPeriods(data: WorkPeriodUpdateManyMutationInput!, where: WorkPeriodWhereInput): BatchPayload!
   updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
   updateManyExpenses(data: ExpenseUpdateManyMutationInput!, where: ExpenseWhereInput): BatchPayload!
   updateManyAccounts(data: AccountUpdateManyMutationInput!, where: AccountWhereInput): BatchPayload!
-  deleteManyJwts(where: JwtWhereInput): BatchPayload!
   deleteManyTimesheets(where: TimesheetWhereInput): BatchPayload!
   deleteManyWorkPeriods(where: WorkPeriodWhereInput): BatchPayload!
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
@@ -1820,7 +1646,6 @@ input ProjectWhereUniqueInput {
 }
 
 type Query {
-  jwts(where: JwtWhereInput, orderBy: JwtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Jwt]!
   timesheets(where: TimesheetWhereInput, orderBy: TimesheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Timesheet]!
   workPeriods(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WorkPeriod]!
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
@@ -1831,7 +1656,6 @@ type Query {
   project(where: ProjectWhereUniqueInput!): Project
   expense(where: ExpenseWhereUniqueInput!): Expense
   account(where: AccountWhereUniqueInput!): Account
-  jwtsConnection(where: JwtWhereInput, orderBy: JwtOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): JwtConnection!
   timesheetsConnection(where: TimesheetWhereInput, orderBy: TimesheetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TimesheetConnection!
   workPeriodsConnection(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WorkPeriodConnection!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
@@ -1846,7 +1670,6 @@ type Query {
 }
 
 type Subscription {
-  jwt(where: JwtSubscriptionWhereInput): JwtSubscriptionPayload
   timesheet(where: TimesheetSubscriptionWhereInput): TimesheetSubscriptionPayload
   workPeriod(where: WorkPeriodSubscriptionWhereInput): WorkPeriodSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload

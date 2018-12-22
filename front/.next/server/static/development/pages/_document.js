@@ -94,9 +94,9 @@ module.exports =
 /******/ ({
 
 /***/ "./node_modules/next/dist/pages/_document.js":
-/*!***************************************************!*\
-  !*** ./node_modules/next/dist/pages/_document.js ***!
-  \***************************************************/
+/*!***********************************************************************************************!*\
+  !*** C:/Users/seana/Desktop/School/timesheet/front/node_modules/next/dist/pages/_document.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -106,9 +106,9 @@ module.exports = __webpack_require__(/*! next/document */ "next/document")
 /***/ }),
 
 /***/ 2:
-/*!*********************************************************!*\
-  !*** multi ./node_modules/next/dist/pages/_document.js ***!
-  \*********************************************************/
+/*!*****************************************************************************************************!*\
+  !*** multi C:/Users/seana/Desktop/School/timesheet/front/node_modules/next/dist/pages/_document.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

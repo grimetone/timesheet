@@ -20,6 +20,7 @@ const USER_CREATE_MUTATION = gql`
       id
       email
       name
+      permissions
     }
   }
 `;

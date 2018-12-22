@@ -20,16 +20,16 @@ const Query = {
   timesheet: forwardTo("db"),
   // Returns a workperiod
   workPeriod: forwardTo("db"),
-  // Returns a project
-  async project(parent, args, ctx, info) {
-    return ctx.db.query.project({ where: { id: args.id } }, info);
-  },
   // Returns all users(accounts)
   async users(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     return ctx.db.query.accounts({}, info);
   },
   // Returns all projects
   async projects(parent, args, ctx, info) {
+    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
     return ctx.db.query.projects({}, info);
   },
   userTimesheet: forwardTo("db"),
