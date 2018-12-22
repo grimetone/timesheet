@@ -15,12 +15,6 @@ type Account {
   permissions: [Permission]
 }
 
-type Jwt {
-  JWT: String!
-  expires: DateTime!
-  user: Account!
-}
-
 type Timesheet {
   id: ID! @unique
   user: Account! @relation(name: "TimesheetByUser")
