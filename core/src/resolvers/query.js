@@ -34,6 +34,19 @@ const Query = {
   },
   userTimesheet: forwardTo("db"),
   userProjects: forwardTo("db"),
+  async recentWorkperiods(parent, args, ctx, info) {
+    //const begin = new Date(new Date() - new Date().getTimezoneOffset() * 60 * 1000)
+    // return begin.toISOString()
+    //     query countTodayClients($begin: DateTime!, $end: DateTime!) {
+    //       _allClientsMeta(filter: {
+    //         createdAt_gte: begin
+    //     createdAt_lt: end
+    //       } {
+    //           count
+    //         }
+    // }
+
+  },
 };
 
 module.exports = Query;

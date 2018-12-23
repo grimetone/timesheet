@@ -113,8 +113,11 @@ const Mutation = {
   },
   // Creates a workperiod
   async createWorkPeriod(parent, args, ctx, info) {
+    // Permissions check
     const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
     permissionCheck(self, ["USER", "SUPERUSER", "ADMIN"]);
+    //Check if there is a valid and current timesheet
+    
     const workPeriod = await ctx.db.mutation.createWorkPeriod(
       {
         data: {

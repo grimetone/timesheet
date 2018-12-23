@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/sean-aede1d/timesheet/dev
-# timestamp: Sat Dec 22 2018 04:07:04 GMT+0100 (Romance Standard Time)
+# timestamp: Sun Dec 23 2018 15:18:17 GMT+0100 (Romance Standard Time)
 
 type Account implements Node {
   id: ID!
@@ -1681,8 +1681,7 @@ type Timesheet implements Node {
   id: ID!
   user: Account!
   confirmedBy: Account
-  from: DateTime!
-  to: DateTime!
+  monthYear: DateTime!
   workPeriods(where: WorkPeriodWhereInput, orderBy: WorkPeriodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WorkPeriod!]
 }
 
@@ -1697,8 +1696,7 @@ type TimesheetConnection {
 }
 
 input TimesheetCreateInput {
-  from: DateTime!
-  to: DateTime!
+  monthYear: DateTime!
   user: AccountCreateOneInput!
   confirmedBy: AccountCreateOneInput
   workPeriods: WorkPeriodCreateManyWithoutTimesheetInput
@@ -1710,8 +1708,7 @@ input TimesheetCreateOneWithoutWorkPeriodsInput {
 }
 
 input TimesheetCreateWithoutWorkPeriodsInput {
-  from: DateTime!
-  to: DateTime!
+  monthYear: DateTime!
   user: AccountCreateOneInput!
   confirmedBy: AccountCreateOneInput
 }
@@ -1728,10 +1725,8 @@ type TimesheetEdge {
 enum TimesheetOrderByInput {
   id_ASC
   id_DESC
-  from_ASC
-  from_DESC
-  to_ASC
-  to_DESC
+  monthYear_ASC
+  monthYear_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1740,8 +1735,7 @@ enum TimesheetOrderByInput {
 
 type TimesheetPreviousValues {
   id: ID!
-  from: DateTime!
-  to: DateTime!
+  monthYear: DateTime!
 }
 
 type TimesheetSubscriptionPayload {
@@ -1784,16 +1778,14 @@ input TimesheetSubscriptionWhereInput {
 }
 
 input TimesheetUpdateInput {
-  from: DateTime
-  to: DateTime
+  monthYear: DateTime
   user: AccountUpdateOneRequiredInput
   confirmedBy: AccountUpdateOneInput
   workPeriods: WorkPeriodUpdateManyWithoutTimesheetInput
 }
 
 input TimesheetUpdateManyMutationInput {
-  from: DateTime
-  to: DateTime
+  monthYear: DateTime
 }
 
 input TimesheetUpdateOneRequiredWithoutWorkPeriodsInput {
@@ -1804,8 +1796,7 @@ input TimesheetUpdateOneRequiredWithoutWorkPeriodsInput {
 }
 
 input TimesheetUpdateWithoutWorkPeriodsDataInput {
-  from: DateTime
-  to: DateTime
+  monthYear: DateTime
   user: AccountUpdateOneRequiredInput
   confirmedBy: AccountUpdateOneInput
 }
@@ -1864,50 +1855,28 @@ input TimesheetWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  from: DateTime
+  monthYear: DateTime
 
   """All values that are not equal to given value."""
-  from_not: DateTime
+  monthYear_not: DateTime
 
   """All values that are contained in given list."""
-  from_in: [DateTime!]
+  monthYear_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  from_not_in: [DateTime!]
+  monthYear_not_in: [DateTime!]
 
   """All values less than the given value."""
-  from_lt: DateTime
+  monthYear_lt: DateTime
 
   """All values less than or equal the given value."""
-  from_lte: DateTime
+  monthYear_lte: DateTime
 
   """All values greater than the given value."""
-  from_gt: DateTime
+  monthYear_gt: DateTime
 
   """All values greater than or equal the given value."""
-  from_gte: DateTime
-  to: DateTime
-
-  """All values that are not equal to given value."""
-  to_not: DateTime
-
-  """All values that are contained in given list."""
-  to_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  to_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  to_lt: DateTime
-
-  """All values less than or equal the given value."""
-  to_lte: DateTime
-
-  """All values greater than the given value."""
-  to_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  to_gte: DateTime
+  monthYear_gte: DateTime
   user: AccountWhereInput
   confirmedBy: AccountWhereInput
   workPeriods_every: WorkPeriodWhereInput
