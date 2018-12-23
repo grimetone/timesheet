@@ -1,3 +1,5 @@
+
+const moment = require('moment');
 /**
  * 
  * @param {Object Account} user 
@@ -9,5 +11,9 @@ function permissionCheck(user, permissionRequired) {
      throw new Error('Lacking permissions');
    }
 }
+const startOfMonth = moment().startOf('month').toISOString();
+const endOfMonth = moment().endOf('month').toISOString();
+// just for demonstration:
+console.log(startOfMonth);
 
 exports.permissionCheck = permissionCheck;

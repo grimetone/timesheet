@@ -19,7 +19,8 @@ type Timesheet {
   id: ID! @unique
   user: Account! @relation(name: "TimesheetByUser")
   confirmedBy: Account @relation(name: "ConfirmedBy")
-  monthYear: DateTime!
+  from: DateTime!
+  to: DateTime!
   workPeriods: [WorkPeriod] @relation(name: "WorkperiodByTimesheet")
 }
 
