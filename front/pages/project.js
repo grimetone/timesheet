@@ -1,15 +1,4 @@
 import React from 'react';
-import {
-  Box,
-  Heading,
-  Grommet,
-  FormField,
-  Tab,
-  Tabs,
-  Text,
-  TextInput,
-  DataTable
-} from "grommet";
 import SingleProject from '../components/getProject/SingleProject';
 
 /**

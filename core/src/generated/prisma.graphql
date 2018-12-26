@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/sean-aede1d/timesheet/dev
-# timestamp: Sun Dec 23 2018 15:55:44 GMT+0100 (Romance Standard Time)
+# timestamp: Tue Dec 25 2018 18:38:31 GMT+0100 (Romance Standard Time)
 
 type Account implements Node {
   id: ID!
@@ -1925,6 +1925,7 @@ type WorkPeriod implements Node {
   to: DateTime
   timesheet: Timesheet!
   confirmedBy: Account
+  user: Account!
 }
 
 """A connection to a list of items."""
@@ -1942,6 +1943,7 @@ input WorkPeriodCreateInput {
   to: DateTime
   timesheet: TimesheetCreateOneWithoutWorkPeriodsInput!
   confirmedBy: AccountCreateOneInput
+  user: AccountCreateOneInput!
 }
 
 input WorkPeriodCreateManyWithoutTimesheetInput {
@@ -1953,6 +1955,7 @@ input WorkPeriodCreateWithoutTimesheetInput {
   from: DateTime!
   to: DateTime
   confirmedBy: AccountCreateOneInput
+  user: AccountCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -2122,6 +2125,7 @@ input WorkPeriodUpdateInput {
   to: DateTime
   timesheet: TimesheetUpdateOneRequiredWithoutWorkPeriodsInput
   confirmedBy: AccountUpdateOneInput
+  user: AccountUpdateOneRequiredInput
 }
 
 input WorkPeriodUpdateManyDataInput {
@@ -2154,6 +2158,7 @@ input WorkPeriodUpdateWithoutTimesheetDataInput {
   from: DateTime
   to: DateTime
   confirmedBy: AccountUpdateOneInput
+  user: AccountUpdateOneRequiredInput
 }
 
 input WorkPeriodUpdateWithWhereUniqueWithoutTimesheetInput {
@@ -2262,6 +2267,7 @@ input WorkPeriodWhereInput {
   to_gte: DateTime
   timesheet: TimesheetWhereInput
   confirmedBy: AccountWhereInput
+  user: AccountWhereInput
 }
 
 input WorkPeriodWhereUniqueInput {

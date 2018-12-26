@@ -1,4 +1,3 @@
-
 const moment = require('moment');
 /**
  * 
@@ -6,14 +5,45 @@ const moment = require('moment');
  * @param {Enum Permission} permissionRequired 
  */
 function permissionCheck(user, permissionRequired) {
-  console.log(user);
-   if (!user.permissions.includes(permissionRequired)){
+  console.log(user.permissions);
+  console.log(permissionRequired);
+  if (!user.permissions.some(r => permissionRequired.includes(r))){
      throw new Error('Lacking permissions');
    }
 }
-const startOfMonth = moment().startOf('month').toISOString();
-const endOfMonth = moment().endOf('month').toISOString();
-// just for demonstration:
-console.log(startOfMonth);
 
-exports.permissionCheck = permissionCheck;
+/**
+ * Returns start of month in ISO format
+ */
+function getStartMonth() {
+  return moment().startOf('month').toISOString();
+}
+
+/**
+ * Returns end of month in ISO format
+ */
+function getEndMonth() {
+  return moment().endOf('month').toISOString();
+}
+
+/**
+ * Returns start of week in ISO
+ */
+function getStartWeek() {
+  return moment().startOf('week').toISOString();
+}
+
+/**
+ * Returns current time in ISO format
+ */
+function getCurrTime() {
+  return moment().toISOString();
+}
+
+module.exports = {
+  permissionCheck,
+  getStartMonth,
+  getEndMonth,
+  getCurrTime,
+  getStartWeek,
+};

@@ -12,7 +12,7 @@ type Account {
   password: String!
   hrChargeKr: Int
   projects: [Project!]
-  permissions: [Permission]
+  permissions: [Permission] @default(value: ["USER"])
 }
 
 type Timesheet {
@@ -30,6 +30,7 @@ type WorkPeriod {
   to: DateTime
   timesheet: Timesheet! @relation(name: "WorkperiodByTimesheet")
   confirmedBy: Account @relation(name: "WorkPeriodConfirmedBy")
+  user: Account! @relation(name: "UserWorkPeriod")
 }
 
 type Project {

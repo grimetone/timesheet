@@ -1,15 +1,21 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { permissionCheck } = require('../permissionUtils');
+
+const { permissionCheck, getStartMonth, getEndMonth, getCurrTime } = require('../permissionUtils');
 const newInfo = "{ id permissions }";
 
 const Mutation = {
   // Logs user in
   async login(parent, args,ctx, info) {
+    console.log('grabbin email!');
     const user = await ctx.db.query.account({ where: { email: args.email } });
+    console.log('heres yo user');
+    console.log(user)
     if (!user) {
       throw new Error('Invalid email');
     }
+    console.log(args.password)
+    console.log(user.password);
     // Bcrypt password comparison
     const validPass = await bcrypt.compare(args.password, user.password);
     if (!validPass) {
@@ -27,15 +33,17 @@ const Mutation = {
   async createUser(parent, args, ctx, info) {
     const email = args.email.toLowerCase();
     const password = await bcrypt.hash(args.password, 10);
-    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
-    permissionCheck(self, ['ADMIN']);
-    const user = await ctx.db.mutation.createAccount({ data: { ...args, email: email, password: password, permissions: { set: ["USER"] }, }, }, info);
+    console.log('creating user');
+    console.log(password);
+    // const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+    //permissionCheck(self, ['ADMIN']);
+    const user = await ctx.db.mutation.createAccount({ data: { ...args, email: email, password: password, permissions: { set: ["USER"] } } }, info);
     return user;
   },
   // Creates a project
   async createProject(parent, args, ctx, info) {
     const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
-    permissionCheck(self, ["SUPERUSER", "ADMIN"]);
+    permissionCheck(self, ["USER", "SUPERUSER", "ADMIN"]);
     const project = await ctx.db.mutation.createProject({ data: { ...args } }, info);
     return project;
   },
@@ -112,27 +120,56 @@ const Mutation = {
     return timesheet;
   },
   // Creates a workperiod
-  async createWorkPeriod(parent, args, ctx, info) {
-    // Permissions check
-    const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
-    permissionCheck(self, ["USER", "SUPERUSER", "ADMIN"]);
-    //Check if there is a valid and current timesheet
-    
-    const workPeriod = await ctx.db.mutation.createWorkPeriod(
-      {
-        data: {
-          user: {
-            connect: { id: "cjpc5dax760e40a966aq1a0mk" } // temp
-          },
-          timesheet: {
-            connect: { id: args.id }
-          },
-          ...args
-        }
-      },
-      info
-    );
-    return workPeriod;
+  async createWorkPeriod(){
+  },
+  // Creates a workperiod
+  async checkin(parent, args, ctx, info) {
+                                           // Permissions check
+                                           const self = await ctx.db.query.account({ where: { id: ctx.request.userId } }, newInfo);
+                                           permissionCheck(
+                                             self,
+                                             [
+                                               "USER",
+                                               "SUPERUSER",
+                                               "ADMIN"
+                                             ]
+                                           );
+                                           // Get start of month
+                                           const startMonth = getStartMonth();
+                                           // Get end month
+                                           const endMonth = getEndMonth();
+                                           // See if workperiod exists
+    const existingWorkperiod = await ctx.db.query.workPeriods({ user: { connect: { id: ctx.request.userId }}, where: { to: null } }, "{id from to}");
+   if (existingWorkperiod[0]){
+     throw new Error("Existing workperiod not closed!");
+   }
+                                           //Check if there is a valid, existing timesheet
+                                           const existingTimesheetArr = await ctx.db.query.timesheets({ filter: { from_gte: startMonth, to_lte: endMonth } }, "{id}");
+                                           let existingTimesheet = existingTimesheetArr[0];
+                                           // Creates timesheet if no viable one exists
+                                           if (!existingTimesheet) {
+                                             timesheet = await ctx.db.mutation.createTimesheet({ data: { user: { connect: { id: ctx.request.userId } }, from: startMonth, to: endMonth } }, "{ id }");
+                                           }
+                                           const currTime = getCurrTime();
+    const workPeriod = await ctx.db.mutation.createWorkPeriod({ data: { timesheet: { connect: { id: existingTimesheet.id } }, user: { connect: { id: ctx.request.userId } }, from: currTime } }, info);
+                                           return workPeriod;
+                                         },
+async checkout(parent, args, ctx, info){
+  // Check if there is an open workperiod
+  const existingWorkperiod = await ctx.db.query.workPeriods({ user: { connect: { id: ctx.request.userId } }, where: { to: null } }, "{id to from}");
+  if (!existingWorkperiod[0]){
+    throw new Error("No workperiods to close!");
+  }
+  const currTime = getCurrTime();
+  const workperiod = await ctx.db.mutation.updateWorkPeriod({
+    data: {
+      to: currTime
+    },
+    where: {
+      id: existingWorkperiod[0].id
+    }
+  });
+  return workperiod;
   },
   // Deletes a workperiod
   async deleteWorkPeriod(parent, args, ctx, info) {
@@ -204,13 +241,13 @@ const Mutation = {
     const timesheet = await ctx.db.mutation.updateTimesheet(
       {
         data: {
+          ...args,
           user: {
             connect: { id: "cjpc5dax760e40a966aq1a0mk" } //temp
           },
           confirmedBy: {
             connect: { id: "cjpc5dax760e40a966aq1a0mk" } // temp
           },
-          ...args
         }
       },
     );

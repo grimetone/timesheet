@@ -18,17 +18,10 @@ class CreateProject extends Component {
   state = {
     name: '',
     active: 'false',
-  };
+  }; 
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
-  onSubmit = async e => {
-  e.preventDefault();
-  await create();
-  this.setState({ name: '' });
-}
-
   render() {
     return (
     <Mutation mutation={PROJECT_CREATE_MUTATION} variables={this.state}>

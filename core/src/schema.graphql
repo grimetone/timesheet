@@ -10,6 +10,8 @@ type Mutation {
   createTimesheet(userId: ID!, to:DateTime!, from: DateTime!): Timesheet!
   confirmTimesheet(id: ID!): Timesheet!
   createWorkPeriod(startTime: DateTime, endTime: DateTime, timesheetId: ID!): WorkPeriod!
+  checkin: WorkPeriod!
+  checkout: WorkPeriod!
   deleteWorkPeriod(id:ID!): WorkPeriod
   confirmWorkPeriod(id: ID!): WorkPeriod!
   createProject(name: String!, active: Boolean!): Project!
@@ -26,10 +28,11 @@ type Query {
   user(id: ID!): Account
   users: [Account]!
   userTimesheet(userId:ID!): [Timesheet]!
-  recentWorkperiods(userId:ID!): [WorkPeriod]
+  recentWorkperiods: [WorkPeriod]
   timesheet(id: ID!): Timesheet
   workPeriod(id: ID!): WorkPeriod
   project(id: ID!): Project
-  userProjects(userId: ID!, active: Boolean): [Project]!
+  userProjects: [Project]!
   projects: [Project]!
+  checkinTime: [WorkPeriod]
 }
