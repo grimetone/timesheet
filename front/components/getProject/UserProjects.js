@@ -6,14 +6,13 @@ import Link from 'next/link';
 
 const USER_PROJECTS_QUERY = gql`
   query USER_PROJECTS_QUERY {
-    userProjects {
-      id
-      name
-      active
-      users {
+    self {
+      projects {
         id
+        name
+        active
+        created
       }
-      created
     }
   }
 `;
@@ -36,21 +35,14 @@ export default () => {
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error: {error.message}</p>;
-            return (
-              <div>
-                {data.userProjects.map(project => (
-                  <p>
-                  {project.id}, {project.name} {project.created} {project.active} 
-                    <Link
-                      href={{
-                        pathname: '/project',
-                        query: { id: project.id },
-                      }}
-                    >Click</Link>
-                   </p>
-                  ))}
-                  </div>
-            );
+            return <div>
+                {data.self.projects.map(project => <p>
+                    {project.id}, {project.name} {project.created} {project.active}
+                    <Link href={{ pathname: '/project', query: { id: project.id } }}>
+                      Click
+                    </Link>
+                  </p>)}
+              </div>;
           }}
         </Query>
     );

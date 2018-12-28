@@ -14,7 +14,7 @@ const menuItems = [
 class Home extends React.Component {
   render(){
     return <div>
-      <Menu label="Actions" items={menuItems} />
+      <Menu label="Menu" items={menuItems} />
         <Box align="center">
           <CheckinButton /> <CheckedinPeriod />
           <CheckoutButton />

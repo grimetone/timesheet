@@ -31,7 +31,7 @@ class CreateProject extends Component {
               this.setState({ name: '' });
             }}>
             <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Sign into your account</h2>
+              <h2>Create Project</h2>
               <Error error={error} />
               <label htmlFor="name">
                 Name

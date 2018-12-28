@@ -5604,7 +5604,7 @@ function connect(options) {
       error.name = err.name;
       error.stack = err.stack; // __NEXT_DIST_DIR is provided by webpack
 
-      (0, _sourceMapSupport.rewriteStacktrace)(error, "C:\\Users\\seana\\desktop\\school\\timesheet\\front\\.next");
+      (0, _sourceMapSupport.rewriteStacktrace)(error, "C:\\Users\\seana\\Desktop\\School\\timesheet\\front\\.next");
       return error;
     }
   };
@@ -18015,9 +18015,9 @@ module.exports = (__webpack_require__(/*! dll-reference dll_64dd12fb04fac2f3544b
 /***/ }),
 
 /***/ "./node_modules/webpack/buildin/module.js":
-/*!************************************************!*\
-  !*** ./node_modules/webpack/buildin/module.js ***!
-  \************************************************/
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -18048,9 +18048,9 @@ module.exports = function(module) {
 /***/ }),
 
 /***/ 0:
-/*!**************************************************************************************************!*\
-  !*** multi C:/Users/seana/Desktop/School/timesheet/front/node_modules/next/dist/client/next-dev ***!
-  \**************************************************************************************************/
+/*!******************************************************!*\
+  !*** multi ./node_modules/next/dist/client/next-dev ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

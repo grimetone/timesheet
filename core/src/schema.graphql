@@ -27,7 +27,7 @@ type Query {
   self: Account
   user(id: ID!): Account
   users: [Account]!
-  userTimesheet(userId:ID!): [Timesheet]!
+  userTimesheet: [Timesheet]!
   recentWorkperiods: [WorkPeriod]
   timesheet(id: ID!): Timesheet
   workPeriod(id: ID!): WorkPeriod

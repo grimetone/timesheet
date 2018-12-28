@@ -34,11 +34,11 @@ class RecentWorkperiodList extends Component {
     return (
       <Query query={RECENT_WORKPERIODS_MUTATION}>
         {({ data, error, loading }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error: {error.message}</p>;
           const totalhours = getTotalHours(data.recentWorkperiods);
           const unassignedhours = getTotalUnassignedHours(data.recentWorkperiods);
           const workPeriods = formatWorkperiod(data.recentWorkperiods);
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error: {error.message}</p>;
           return <div>
             <DataTable columns={this.getColumns(totalhours, unassignedhours)} data={workPeriods} />
             </div>;

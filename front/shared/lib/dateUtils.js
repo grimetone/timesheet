@@ -18,7 +18,6 @@ export const formatWorkperiod = (periodArr) => {
      }
      const mom = moment(product.from);
      product.from = mom.format('LLL');
-     console.log(product.id);
      product.link = <Link href={{ pathname: '/Workperiod', query: { id: product.id } }}><a>Link</a></Link>;
    });
   });
@@ -34,6 +33,18 @@ export const formatCheckin = (periods) => {
   }
         const newMom = moment(periods[0].from);
         return newMom.format('LLL');
+}
+
+/**
+ * Reformats the dates of the array of workperiods
+ * @param {Array} period 
+ */
+export const formatCheckout = (periods) => {
+  if (!periods) {
+    return;
+  }
+  const newMom = moment(periods[0].to);
+  return newMom.format('LLL');
 }
 
 /**

@@ -17,7 +17,6 @@ const CHECKINTIME_QUERY = gql`
 export default (props) => {
   return <Query query={CHECKINTIME_QUERY} >
       {({ error, loading, data }) => {
-        console.log(data);
         if (!(data.checkinTime) || data.checkinTime.length<1) return <p>please check-in..</p>;
       const time = formatCheckin(data.checkinTime);
       const timeCompare = timeComparison(data.checkinTime);
